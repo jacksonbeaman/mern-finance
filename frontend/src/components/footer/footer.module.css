@@ -1,0 +1,84 @@
+.footer {
+  background-color: black;
+  color: #efefef;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.brand {
+  font-size: 1.75rem;
+  color: #efefef;
+  display: flex;
+  justify-content: flex-start;
+  padding-bottom: 1rem;
+}
+
+.footerLogo {
+  color: #efefef;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.copyright {
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+.attribution {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* padding-bottom: 1rem; */
+}
+
+.attribution div {
+  padding-bottom: 1rem;
+  padding-right: 0.125rem;
+  padding-left: 0.125rem;
+}
+
+.follow {
+  width: 25%;
+  min-width: 300px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.footerIcon {
+  font-size: 2rem;
+  color: #efefef;
+}
+
+.footerIcon:hover {
+  font-size: 2rem;
+  /* color: rgba(97, 218, 251, 0.8); */
+  color: rgba(76, 110, 245, 0.8);
+}
+
+.footer a:link {
+  color: #61dafb;
+  text-decoration: none;
+}
+
+/* visited link */
+.footer a:visited {
+  color: #61dafb;
+}
+
+/* mouse over link */
+.footer a:hover {
+  color: #4c6ef5;
+}
+
+/* selected link */
+.footer a:active {
+  color: #4c6ef5;
+}

@@ -1,0 +1,259 @@
+.sectionTrisect {
+  position: relative;
+  height: calc(100vh - 80px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  text-align: center;
+  min-height: 280px;
+}
+
+.cardContainer {
+  width: 100%;
+  padding-bottom: 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sectionTrisect .headingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 3rem;
+}
+
+.iconCard {
+  width: 290px;
+  height: 240px;
+  border: 2px solid black;
+  background-color: #fdfdfd;
+  border-radius: 6px;
+  text-align: center;
+  overflow: hidden;
+  padding: 2rem 1rem;
+  transition: all 0.3s ease 0s;
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+}
+
+.iconCard svg {
+  width: 180px;
+  height: 80px;
+  transition: all 0.3s ease 0s;
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+  overflow: hidden;
+}
+
+.iconCard:hover svg {
+  width: 190px;
+  height: 90px;
+}
+
+.iconCard:hover {
+  padding-top: calc(2rem - 5px);
+  padding-right: calc(1rem - 5px);
+  padding-left: calc(1rem - 5px);
+}
+
+.iconCard h4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  transition: all 0.3s ease 0s;
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease;
+  transition-delay: 0s;
+}
+
+.iconCard:hover h4 {
+  padding-top: calc(1rem - 5px);
+}
+
+.cardContent {
+  position: relative;
+}
+
+.iconCard:hover {
+  box-shadow: 0px 0px 20px #61dafb;
+}
+
+@media only screen and (max-width: 1150px) {
+  .sectionTrisect {
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+    margin: 0;
+  }
+}
+
+@media only screen and (max-width: 960px) {
+  .sectionTrisect {
+    padding-right: 1rem;
+    padding-left: 1rem;
+  }
+}
+
+@media only screen and (max-width: 930px) {
+  .iconCard {
+    width: 217.5px;
+    height: 180px;
+    padding: 1rem 0.5rem;
+  }
+
+  .iconCard svg {
+    width: 135px;
+    height: 60px;
+  }
+
+  .iconCard h4 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .iconCard:hover svg {
+    width: 145px;
+    height: 70px;
+  }
+
+  .iconCard:hover {
+    padding-top: calc(1rem - 5px);
+    padding-right: calc(0.5rem - 5px);
+    padding-left: calc(0.5rem - 5px);
+  }
+
+  .iconCard:hover h4 {
+    padding-top: calc(0.5rem - 5px);
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .headingContainer {
+    padding-bottom: 1rem;
+    align-items: flex-end;
+  }
+  .cardContainer {
+    padding-bottom: 0;
+  }
+
+  .iconCard {
+    width: 200px;
+    height: 165px;
+    padding: 1rem 0.5rem;
+  }
+
+  .iconCard svg {
+    width: 90px;
+    height: 40px;
+  }
+
+  .iconCard h4 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .iconCard:hover svg {
+    width: 100px;
+    height: 50px;
+  }
+
+  .iconCard:hover {
+    padding-top: calc(1rem - 5px);
+    padding-right: calc(0.5rem - 5px);
+    padding-left: calc(0.5rem - 5px);
+  }
+
+  .iconCard:hover h4 {
+    padding-top: calc(0.5rem - 5px);
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .sectionTrisect {
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  .sectionTrisect {
+    min-height: 547px;
+  }
+  .sectionTrisect .headingContainer {
+    display: none;
+  }
+  .cardContainer:before {
+    content: 'Our Services';
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  .cardContainer {
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .iconCard {
+    width: 200px;
+    height: 145px;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .iconCard:last-child {
+    margin-bottom: 0;
+  }
+
+  .iconCard:hover {
+    padding-top: calc(0.5rem - 5px);
+    padding-right: calc(0.5rem - 5px);
+    padding-left: calc(0.5rem - 5px);
+  }
+}
+
+@media only screen and (max-height: 450px) {
+  .sectionTrisect .headingContainer {
+    padding-bottom: 1rem;
+  }
+  .cardContainer {
+    padding-bottom: 0;
+  }
+}
+
+@media only screen and (max-height: 326px) {
+  .sectionTrisect {
+    min-height: 200px;
+  }
+  .sectionTrisect .headingContainer {
+    display: flex;
+    padding-bottom: 0.5rem;
+  }
+  .cardContainer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .iconCard {
+    width: 195px;
+    height: 135px;
+    margin-bottom: 0;
+    padding: 0.5rem;
+  }
+
+  .iconCard h4 {
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .iconCard:hover h4 {
+    padding-top: calc(0.25rem - 5px);
+  }
+}

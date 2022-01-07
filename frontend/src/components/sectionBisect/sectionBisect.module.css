@@ -1,0 +1,96 @@
+.section {
+  position: relative;
+}
+
+.dark {
+  background-color: #000;
+  color: #fff;
+}
+
+.sectionBisect {
+  height: calc(100vh - 80px);
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.sectionContent {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-right: 4rem;
+}
+
+.sectionContentRight {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 4rem;
+}
+
+.sectionImage {
+  width: 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+.sectionContent span,
+.sectionContentRight span {
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #61dafb;
+}
+
+.sectionContent span,
+.sectionContent h2,
+.sectionContent p,
+.sectionContentRight span,
+.sectionContentRight h2,
+.sectionContentRight p {
+  padding-bottom: 1rem;
+}
+
+.sectionContent p,
+.sectionContentRight p {
+  line-height: 1.2rem;
+}
+
+@media only screen and (max-width: 1150px) {
+  .sectionContent {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+  }
+
+  .sectionContentRight {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+  }
+}
+
+@media only screen and (max-width: 530px), only screen and (max-height: 400px) {
+  .sectionImage {
+    display: none;
+  }
+
+  .sectionContent,
+  .sectionContentRight {
+    width: 100%;
+  }
+}

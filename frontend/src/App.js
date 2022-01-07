@@ -1,7 +1,9 @@
+import HomeScreen from './screens/HomeScreen';
+
 const App = () => {
   return (
     <>
-      <h1>Welcome To MERN Finance</h1>
+      <HomeScreen />
     </>
   );
 };

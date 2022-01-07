@@ -1,0 +1,39 @@
+.button {
+  background-color: rgba(97, 218, 251, 1);
+  /* color: rgba(255, 255, 255, 0.8); */
+  /* color: rgba(52, 58, 64, 1); */
+  color: rgba(0, 0, 0, 1);
+  border-radius: 1rem;
+  border-style: none;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.button:hover {
+  /* background-color: rgba(97, 218, 251, 1); */
+  background-color: rgba(76, 110, 245, 1);
+  color: rgba(255, 255, 255, 0.8);
+  /*color: rgba(52, 58, 64, 1);*/
+  /* box-shadow: 0px 0px 15px rgba(97, 218, 251, 0.4); */
+  box-shadow: 0px 0px 15px rgba(76, 110, 245, 0.8);
+  font-weight: 500;
+}
+
+.button:active {
+  margin: -0.25rem;
+  padding: 0.75rem 1.25rem;
+}
+
+.arrow {
+  display: none;
+}
+
+.button:hover .arrow {
+  display: inline-block;
+}
+
+.button:hover .chevron {
+  display: none;
+}

@@ -1,0 +1,71 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  color: #fff;
+  width: 100%;
+  height: 100vh;
+  /* max-width: 100vw; */
+}
+
+.hero .heroContent {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 10;
+}
+
+.hero div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.75rem 0;
+}
+
+.hero .buttonContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.backgroundVideo {
+  object-fit: cover;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -99;
+}
+
+.hero p {
+  line-height: 1.2rem;
+}
+
+@media only screen and (max-width: 990px) {
+  .hero .heroContent {
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+  }
+}
+
+@media only screen and (max-height: 326px) {
+  .hero .heroContent {
+    position: absolute;
+    top: calc(60%);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+  }
+
+  .hero h1 {
+    font-size: 2.25rem;
+  }
+}

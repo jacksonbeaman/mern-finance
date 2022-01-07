@@ -1,0 +1,90 @@
+.section {
+  position: relative;
+}
+
+.dark {
+  background-color: #000;
+  color: #fff;
+}
+
+.sectionBisect {
+  height: calc(100vh - 80px);
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.sectionContent {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-right: 4rem;
+}
+
+.sectionSvg {
+  width: 50%;
+  overflow: hidden;
+  position: relative;
+}
+
+.sectionSvg svg {
+  width: 800px;
+  height: 340px;
+  overflow: hidden;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sectionContent span {
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #61dafb;
+}
+
+.sectionContent span,
+.sectionContent h2,
+.sectionContent p {
+  padding-bottom: 1rem;
+}
+
+.sectionContent p {
+  line-height: 1.2rem;
+}
+
+@media only screen and (max-width: 1150px) {
+  .sectionContent {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-right: 2.5rem;
+    padding-left: 2.5rem;
+  }
+
+  .sectionSvg svg {
+    height: 45%;
+    width: auto;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    left: calc(50% - 1rem);
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media only screen and (max-width: 530px), only screen and (max-height: 400px) {
+  .sectionSvg {
+    display: none;
+  }
+
+  .sectionContent,
+  .sectionContent {
+    width: 100%;
+  }
+}
