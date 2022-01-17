@@ -11,6 +11,7 @@ const HomeScreen = () => {
       <Header />
       <Hero />
       <SectionBisect
+        sectionId='about'
         spanText={'Premium Financial Services'}
         h2Text={'Unlimited transactions with zero fees'}
         pText={
@@ -20,6 +21,7 @@ const HomeScreen = () => {
         backgroundImage={'/images/city-1.jpg'}
       />
       <SectionBisect
+        sectionId='discover'
         spanText={'Unlimited Access'}
         h2Text={'Log into your account at any time'}
         pText={
@@ -30,8 +32,9 @@ const HomeScreen = () => {
         theme={'dark'}
         imageLeft={true}
       />
-      <SectionTrisect />
+      <SectionTrisect sectionId='services' />
       <SectionBisectSvg
+        sectionId='signUp'
         spanText={'Join our team'}
         h2Text={'Creating an account is extremely easy'}
         pText={

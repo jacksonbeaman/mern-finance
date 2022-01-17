@@ -2,7 +2,7 @@ import { useState } from 'react';
 import styles from './hero.module.css';
 import Button from '../button/Button';
 
-const Hero = () => {
+const Hero = ({ sectionId }) => {
   const [matches, setMatches] = useState(
     window.matchMedia('(max-width: 450px)').matches
   );
@@ -17,6 +17,7 @@ const Hero = () => {
 
   return (
     <div
+      id={sectionId}
       className={styles.hero}
       style={
         matches

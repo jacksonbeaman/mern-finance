@@ -3,6 +3,7 @@ import styles from './sectionBisectSvg.module.css';
 import SecurityIcon from '../icons/SecurityIcon';
 
 const SectionBisectSvg = ({
+  sectionId,
   spanText,
   h2Text,
   pText,
@@ -13,6 +14,7 @@ const SectionBisectSvg = ({
 }) => {
   return (
     <div
+      id={sectionId}
       className={
         theme === 'dark'
           ? `${styles.section} + ' ' + ${styles.dark}`

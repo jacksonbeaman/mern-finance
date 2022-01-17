@@ -3,9 +3,12 @@ import WorldIcon from '../icons/WorldIcon';
 import InsightsIcon from '../icons/InsightsIcon';
 import styles from './sectionTrisect.module.css';
 
-const SectionTrisect = () => {
+const SectionTrisect = ({ sectionId }) => {
   return (
-    <div className={`container + ' ' + ${styles.sectionTrisect}`}>
+    <div
+      id={sectionId}
+      className={`container + ' ' + ${styles.sectionTrisect}`}
+    >
       <div className={styles.headingContainer}>
         <h2>Our Services</h2>
       </div>

@@ -90,7 +90,11 @@ header {
   color: rgba(255, 255, 255, 0.7);
 }
 
-.navMenu li:hover {
+.navMenu ul:hover > li:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.active {
   border-bottom: 4px solid #61dafb;
   padding-bottom: 1.5px;
   color: rgba(255, 255, 255, 1);

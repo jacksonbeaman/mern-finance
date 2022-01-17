@@ -2,6 +2,7 @@ import Button from '../button/Button';
 import styles from './sectionBisect.module.css';
 
 const SectionBisect = ({
+  sectionId,
   spanText,
   h2Text,
   pText,
@@ -12,6 +13,7 @@ const SectionBisect = ({
 }) => {
   return (
     <div
+      id={sectionId}
       className={
         theme === 'dark'
           ? `${styles.section} + ' ' + ${styles.dark}`
