@@ -60,3 +60,92 @@ h6 {
   max-width: 1100px;
   margin: 0 auto;
 }
+
+/* Forms */
+
+.formScreen {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem 0;
+  min-height: calc(100vh - 172px);
+  position: relative;
+  top: 80px;
+}
+
+.formContainer {
+  flex-basis: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 50%;
+  padding: 0 1rem;
+}
+
+.formContainer h1 {
+  padding-top: 0.5rem;
+  padding-bottom: 1rem;
+}
+
+.formContainer form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+form input {
+  height: 3rem;
+  background-color: #f7f7f9;
+  border: 0 solid #ced4da;
+  padding: 0 1.5rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+form label {
+  padding-bottom: 0.5rem;
+}
+
+.formContainer span {
+  margin-top: 1rem;
+}
+
+.formContainer a:link {
+  color: #61dafb;
+  text-decoration: none;
+}
+
+/* visited link */
+.formContainer a:visited {
+  color: #61dafb;
+}
+
+/* mouse over link */
+.formContainer a:hover {
+  color: #4c6ef5;
+}
+
+/* selected link */
+.formContainer a:active {
+  color: #4c6ef5;
+}
+
+@media only screen and (max-width: 768px) {
+  .formContainer {
+    flex-basis: 100%;
+    display: flex;
+    max-width: 100%;
+    padding: 0 2.5rem;
+  }
+}
+
+/* Links */
+
+a:link.linkContainer,
+a:visited.linkContainer,
+a:hover.linkContainer,
+a:active.linkContainer {
+  text-decoration: none;
+}

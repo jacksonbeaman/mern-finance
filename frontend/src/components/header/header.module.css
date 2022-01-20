@@ -12,11 +12,16 @@ header {
   z-index: 100;
   width: 100%;
   /* max-width: 100vw; */
-  -webkit-transition: background-color 600ms linear;
-  -ms-transition: background-color 600ms linear;
-  transition: background-color 600ms linear;
+  /* -webkit-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear; */
 }
 
+.headerTransition {
+  -webkit-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
+}
 .navTransparent {
   background-color: transparent;
   -webkit-transition: background-color 500ms linear;
@@ -35,6 +40,10 @@ header {
   display: flex;
   justify-content: flex-start;
   padding-top: 26px;
+}
+
+.brand:hover {
+  cursor: pointer;
 }
 
 .navLogo {
@@ -102,6 +111,16 @@ header {
 
 .sidebarContainer {
   display: none;
+}
+
+a:link.logoLinkContainer,
+a:visited.logoLinkContainer,
+a:hover.logoLinkContainer,
+a:active.logoLinkContainer {
+  color: #fff;
+  font-size: 1.75rem;
+  display: inherit;
+  justify-content: inherit;
 }
 
 @media only screen and (max-width: 860px) {

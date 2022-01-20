@@ -1,9 +1,14 @@
 import styles from './button.module.css';
 import PropTypes from 'prop-types';
 
-const Button = ({ text, chevron, fontSize }) => {
+const Button = ({ text, chevron, fontSize, onClick, type }) => {
   return (
-    <button className={styles.button} style={{ fontSize: `${fontSize}` }}>
+    <button
+      className={styles.button}
+      style={{ fontSize: `${fontSize}` }}
+      onClick={onClick}
+      type={type}
+    >
       {text}
       {chevron && (
         <>

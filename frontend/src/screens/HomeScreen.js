@@ -1,14 +1,11 @@
-import Header from '../components/header/Header';
 import Hero from '../components/hero/Hero';
 import SectionBisect from '../components/sectionBisect/SectionBisect';
 import SectionBisectSvg from '../components/sectionBisectSvg/SectionBisectSvg';
 import SectionTrisect from '../components/sectionTrisect/SectionTrisect';
-import Footer from '../components/footer/Footer';
 
 const HomeScreen = () => {
   return (
     <>
-      <Header />
       <Hero />
       <SectionBisect
         sectionId='about'
@@ -43,7 +40,6 @@ const HomeScreen = () => {
         buttonText={'Start Now'}
         theme={'dark'}
       />
-      <Footer />
     </>
   );
 };

@@ -2,10 +2,14 @@ import Button from '../button/Button';
 import styles from './header.module.css';
 import { useEffect, useState } from 'react';
 import { Link as LinkScroll, animateScroll as scroll } from 'react-scroll';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const Header = () => {
   const [navActive, setNavActive] = useState(false);
   const [toggleSidebar, setToggleSidebar] = useState(false);
+
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     handleScroll();
@@ -25,74 +29,100 @@ const Header = () => {
     setToggleSidebar(!toggleSidebar);
   };
 
+  const handleSignIn = () => {
+    navigate('/login');
+    // navigate instead of history.push('/login') with v6 of react-router;
+  };
+
   return (
-    <header className={!navActive ? styles.navTransparent : ''}>
+    <header
+      className={
+        !navActive && pathname === '/'
+          ? styles.navTransparent
+          : pathname === '/'
+          ? styles.headerTransition
+          : ''
+      }
+    >
       <nav className={`${styles.navbar} + ' ' + container`}>
-        <div className={styles.brand} onClick={() => scroll.scrollToTop()}>
-          <span className={styles.navLogo}>MERN</span> Finance
-        </div>
-        <div className={styles.navMenu}>
-          <ul>
-            <li>
-              <LinkScroll
-                to='about'
-                smooth={true}
-                duration={500}
-                spy={true}
-                isDynamic={true}
-                ignoreCancelEvents={true}
-                offset={-80}
-                activeClass={styles.active}
-              >
-                About
-              </LinkScroll>
-            </li>
-            <li>
-              <LinkScroll
-                to='discover'
-                smooth={true}
-                duration={500}
-                spy={true}
-                isDynamic={true}
-                ignoreCancelEvents={true}
-                offset={-80}
-                activeClass={styles.active}
-              >
-                Discover
-              </LinkScroll>
-            </li>
-            <li>
-              <LinkScroll
-                to='services'
-                smooth={true}
-                duration={500}
-                spy={true}
-                isDynamic={true}
-                ignoreCancelEvents={true}
-                offset={-80}
-                activeClass={styles.active}
-              >
-                Services
-              </LinkScroll>
-            </li>
-            <li>
-              <LinkScroll
-                to='signUp'
-                smooth={true}
-                duration={500}
-                spy={true}
-                offset={-80}
-                isDynamic={true}
-                ignoreCancelEvents={true}
-                activeClass={styles.active}
-              >
-                Sign up
-              </LinkScroll>
-            </li>
-          </ul>
-        </div>
+        {pathname === '/' ? (
+          <div className={styles.brand} onClick={() => scroll.scrollToTop()}>
+            <span className={styles.navLogo}>MERN</span> Finance
+          </div>
+        ) : (
+          <div className={styles.brand} onClick={() => scroll.scrollToTop()}>
+            <Link
+              className={`${styles.logoLinkContainer} + ' ' + linkContainer`}
+              to='/'
+            >
+              <span className={styles.navLogo}>MERN</span> Finance
+            </Link>
+          </div>
+        )}
+        {pathname === '/' && (
+          <div className={styles.navMenu}>
+            <ul>
+              <li>
+                <LinkScroll
+                  to='about'
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  isDynamic={true}
+                  ignoreCancelEvents={true}
+                  offset={-80}
+                  activeClass={styles.active}
+                >
+                  About
+                </LinkScroll>
+              </li>
+              <li>
+                <LinkScroll
+                  to='discover'
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  isDynamic={true}
+                  ignoreCancelEvents={true}
+                  offset={-80}
+                  activeClass={styles.active}
+                >
+                  Discover
+                </LinkScroll>
+              </li>
+              <li>
+                <LinkScroll
+                  to='services'
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  isDynamic={true}
+                  ignoreCancelEvents={true}
+                  offset={-80}
+                  activeClass={styles.active}
+                >
+                  Services
+                </LinkScroll>
+              </li>
+              <li>
+                <LinkScroll
+                  to='signUp'
+                  smooth={true}
+                  duration={500}
+                  spy={true}
+                  offset={-80}
+                  isDynamic={true}
+                  ignoreCancelEvents={true}
+                  activeClass={styles.active}
+                >
+                  Sign up
+                </LinkScroll>
+              </li>
+            </ul>
+          </div>
+        )}
         <div className={styles.navButtonContainer}>
-          <Button text='Sign In' />
+          <Button text='Sign In' onClick={() => handleSignIn()} />
         </div>
         <div className={styles.sidebarContainer}>
           {toggleSidebar ? (
@@ -162,7 +192,11 @@ const Header = () => {
                     </LinkScroll>
                   </li>
                 </ul>
-                <Button text='Sign In' fontSize='1.5rem' />
+                <Button
+                  text='Sign In'
+                  fontSize='1.5rem'
+                  onClick={() => handleSignIn()}
+                />
               </div>
             </div>
           ) : (
