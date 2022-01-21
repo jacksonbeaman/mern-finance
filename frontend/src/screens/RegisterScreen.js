@@ -2,20 +2,20 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/button/Button';
 
-const LoginScreen = () => {
+const RegisterScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const submitHandler = (e) => {
     e.preventDefault();
-    alert(`${email}, ${password}`);
+    alert(`${email}, ${password}, ${confirmPassword}`);
   };
-
   return (
     <>
       <div className={`container + formScreen`}>
         <div className='formContainer'>
-          <h1>Sign In</h1>
+          <h1>Sign Up</h1>
           <form onSubmit={submitHandler}>
             <label>Email Address</label>
             <input
@@ -31,10 +31,17 @@ const LoginScreen = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></input>
-            <Button type='submit' text='Sign In' />
+            <label>Confirm Password</label>
+            <input
+              type='password'
+              placeholder='Confirm password'
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+            ></input>
+            <Button type='submit' text='Register' />
           </form>
           <span>
-            New user? <Link to='/register'>Register</Link>
+            Have an account? <Link to='/login'>Login</Link>
           </span>
         </div>
       </div>
@@ -42,4 +49,4 @@ const LoginScreen = () => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;
