@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './hero.module.css';
 import Button from '../button/Button';
 
@@ -14,6 +15,12 @@ const Hero = ({ sectionId }) => {
   window
     .matchMedia('(max-width: 450px)')
     .addEventListener('change', handleMatches);
+
+  const navigate = useNavigate();
+
+  const handleSignUp = () => {
+    navigate('/register');
+  };
 
   return (
     <div
@@ -44,7 +51,11 @@ const Hero = ({ sectionId }) => {
           </p>
         </div>
         <div className={styles.buttonContainer}>
-          <Button text={'Get Started'} chevron={true} />
+          <Button
+            text={'Get Started'}
+            chevron={true}
+            onClick={() => handleSignUp()}
+          />
         </div>
       </div>
     </div>

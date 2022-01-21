@@ -1,5 +1,6 @@
 import Button from '../button/Button';
 import styles from './sectionBisect.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const SectionBisect = ({
   sectionId,
@@ -11,6 +12,12 @@ const SectionBisect = ({
   theme,
   imageLeft,
 }) => {
+  const navigate = useNavigate();
+
+  const handleSignUp = () => {
+    navigate('/register');
+  };
+
   return (
     <div
       id={sectionId}
@@ -33,7 +40,7 @@ const SectionBisect = ({
             <span>{spanText}</span>
             <h2>{h2Text}</h2>
             <p>{pText}</p>
-            <Button text={buttonText} />
+            <Button text={buttonText} onClick={() => handleSignUp()} />
           </div>
         </div>
       ) : (
@@ -42,7 +49,7 @@ const SectionBisect = ({
             <span>{spanText}</span>
             <h2>{h2Text}</h2>
             <p>{pText}</p>
-            <Button text={buttonText} />
+            <Button text={buttonText} onClick={() => handleSignUp()} />
           </div>
           <div
             className={styles.sectionImage}
