@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './hero.module.css';
 import Button from '../button/Button';
@@ -12,9 +12,15 @@ const Hero = ({ sectionId }) => {
     setMatches(e.matches);
   };
 
-  window
-    .matchMedia('(max-width: 450px)')
-    .addEventListener('change', handleMatches);
+  useEffect(() => {
+    window
+      .matchMedia('(max-width: 450px)')
+      .addEventListener('change', handleMatches);
+  }, []);
+
+  // window
+  //   .matchMedia('(max-width: 450px)')
+  //   .addEventListener('change', handleMatches);
 
   const navigate = useNavigate();
 
