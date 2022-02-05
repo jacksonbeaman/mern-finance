@@ -2,15 +2,21 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/button/Button';
 
-const RegisterScreen = () => {
+const RegisterScreen = ({ onSignUp }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
   const submitHandler = (e) => {
     e.preventDefault();
+    let username = email;
+    onSignUp({ username, password });
     alert(`${email}, ${password}, ${confirmPassword}`);
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
   };
+
   return (
     <>
       <div className={`container + formScreen`}>
