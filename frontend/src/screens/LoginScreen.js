@@ -2,13 +2,18 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/button/Button';
 
-const LoginScreen = () => {
+const LoginScreen = ({ onSignIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const submitHandler = (e) => {
     e.preventDefault();
+    let username = email;
+    onSignIn({ username, password });
     alert(`${email}, ${password}`);
+    setEmail('');
+    setPassword('');
+    username = '';
   };
 
   return (

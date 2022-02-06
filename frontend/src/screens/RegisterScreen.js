@@ -15,6 +15,7 @@ const RegisterScreen = ({ onSignUp }) => {
     setEmail('');
     setPassword('');
     setConfirmPassword('');
+    username = '';
   };
 
   return (

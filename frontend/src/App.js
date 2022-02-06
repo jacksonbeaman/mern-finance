@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Amplify, { Auth } from 'aws-amplify';
 import Header from './components/header/Header';
@@ -7,6 +8,16 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 
 const App = () => {
+  const [user, setUser] = useState(
+    localStorage.getItem(
+      `CognitoIdentityServiceProvider.${process.env.REACT_APP_AWS_COGNITO_USER_POOL_WEB_CLIENT_ID}.LastAuthUser`
+    )
+      ? localStorage.getItem(
+          `CognitoIdentityServiceProvider.${process.env.REACT_APP_AWS_COGNITO_USER_POOL_WEB_CLIENT_ID}.LastAuthUser`
+        )
+      : null
+  );
+
   Amplify.configure({
     Auth: {
       // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
@@ -39,6 +50,18 @@ const App = () => {
     }
   };
 
+  const signIn = async ({ username, password }) => {
+    try {
+      const user = await Auth.signIn(username, password);
+      console.log(user);
+      setUser(user.username);
+    } catch (error) {
+      console.log('error signing in', error);
+    }
+  };
+
+  console.log(user);
+
   // You can get the current config object
   const currentConfig = Auth.configure();
   console.log(currentConfig);
@@ -49,7 +72,7 @@ const App = () => {
         <Header />
         <Routes>
           <Route path='/' element={<HomeScreen />} />
-          <Route path='/login' element={<LoginScreen />} />
+          <Route path='/login' element={<LoginScreen onSignIn={signIn} />} />
           <Route
             path='/register'
             element={<RegisterScreen onSignUp={signUp} />}
