@@ -6,6 +6,7 @@ import Footer from './components/footer/Footer';
 import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
+import UserHeader from './components/userHeader/UserHeader';
 
 const App = () => {
   const [user, setUser] = useState(
@@ -69,7 +70,7 @@ const App = () => {
   return (
     <>
       <Router>
-        <Header />
+        {user ? <UserHeader /> : <Header />}
         <Routes>
           <Route path='/' element={<HomeScreen />} />
           <Route path='/login' element={<LoginScreen onSignIn={signIn} />} />
