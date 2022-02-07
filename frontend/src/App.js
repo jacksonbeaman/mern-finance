@@ -61,6 +61,15 @@ const App = () => {
     }
   };
 
+  const signOut = async () => {
+    try {
+      await Auth.signOut();
+      setUser(null);
+    } catch (error) {
+      console.log('error signing out: ', error);
+    }
+  };
+
   console.log(user);
 
   // You can get the current config object
@@ -70,7 +79,7 @@ const App = () => {
   return (
     <>
       <Router>
-        {user ? <UserHeader /> : <Header />}
+        {user ? <UserHeader onSignOut={signOut} /> : <Header />}
         <Routes>
           <Route path='/' element={<HomeScreen />} />
           <Route path='/login' element={<LoginScreen onSignIn={signIn} />} />

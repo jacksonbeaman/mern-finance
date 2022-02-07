@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { animateScroll as scroll } from 'react-scroll';
 import { Link } from 'react-router-dom';
 
-const UserHeader = () => {
+const UserHeader = ({ onSignOut }) => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
 
   const toggle = () => {
@@ -12,7 +12,8 @@ const UserHeader = () => {
   };
 
   const handleSignOut = () => {
-    console.log('Sign Out');
+    onSignOut();
+    alert('Signed Out');
   };
 
   return (
