@@ -78,12 +78,29 @@ header {
   justify-content: flex-end;
 }
 
-.navMenu ul:hover > li:not(:hover) {
-  color: rgba(255, 255, 255, 0.7);
+li > a:link {
+  color: rgba(255, 255, 255, 1);
+  text-decoration: none;
 }
 
-.navMenu ul:hover > li:hover {
+li > a:visited {
   color: rgba(255, 255, 255, 1);
+  text-decoration: none;
+}
+
+ul:hover a:not(:hover) {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+}
+
+ul:hover a:hover {
+  color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+ul:hover a:active {
+  color: #61dafb;
 }
 
 .active {

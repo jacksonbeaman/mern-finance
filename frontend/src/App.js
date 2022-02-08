@@ -7,6 +7,7 @@ import HomeScreen from './screens/HomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import UserHeader from './components/userHeader/UserHeader';
+import QuoteScreen from './screens/QuoteScreen';
 
 const App = () => {
   const [user, setUser] = useState(
@@ -86,6 +87,10 @@ const App = () => {
           <Route
             path='/register'
             element={<RegisterScreen onSignUp={signUp} />}
+          />
+          <Route
+            path='/quote'
+            element={user ? <QuoteScreen /> : <LoginScreen onSignIn={signIn} />}
           />
         </Routes>
         <Footer />

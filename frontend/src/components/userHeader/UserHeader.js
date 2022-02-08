@@ -26,7 +26,9 @@ const UserHeader = ({ onSignOut }) => {
         </div>
         <div className={styles.navMenu}>
           <ul>
-            <li>Quote</li>
+            <li>
+              <Link to='/quote'>Quote</Link>
+            </li>
             <li>Buy</li>
             <li>Sell</li>
             <li>History</li>
@@ -46,7 +48,9 @@ const UserHeader = ({ onSignOut }) => {
               </div>
               <div className={styles.sidebarItemsContainer}>
                 <ul>
-                  <li>Quote</li>
+                  <li>
+                    <Link to='/quote'>Quote</Link>
+                  </li>
                   <li>Buy</li>
                   <li>Sell</li>
                   <li>History</li>
