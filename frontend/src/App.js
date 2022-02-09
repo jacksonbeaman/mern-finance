@@ -90,7 +90,9 @@ const App = () => {
           />
           <Route
             path='/quote'
-            element={user ? <QuoteScreen /> : <LoginScreen onSignIn={signIn} />}
+            element={
+              !user ? <LoginScreen onSignIn={signIn} /> : <QuoteScreen />
+            }
           />
         </Routes>
         <Footer />
