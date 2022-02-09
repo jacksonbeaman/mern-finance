@@ -8,12 +8,10 @@ const LoginScreen = ({ onSignIn }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    let username = email;
-    onSignIn({ username, password });
+    onSignIn({ username: email, password });
     alert(`${email}, ${password}`);
     setEmail('');
     setPassword('');
-    username = '';
   };
 
   return (
