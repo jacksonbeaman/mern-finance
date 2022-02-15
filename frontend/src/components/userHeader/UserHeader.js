@@ -2,10 +2,12 @@ import Button from '../button/Button';
 import styles from './userHeader.module.css';
 import { useState } from 'react';
 import { animateScroll as scroll } from 'react-scroll';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const UserHeader = ({ onSignOut }) => {
   const [toggleSidebar, setToggleSidebar] = useState(false);
+
+  const navigate = useNavigate();
 
   const toggle = () => {
     setToggleSidebar(!toggleSidebar);
@@ -14,6 +16,7 @@ const UserHeader = ({ onSignOut }) => {
   const handleSignOut = () => {
     onSignOut();
     alert('Signed Out');
+    navigate('/');
   };
 
   return (
