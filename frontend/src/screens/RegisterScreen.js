@@ -1,11 +1,13 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/button/Button';
 
 const RegisterScreen = ({ onSignUp }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const navigate = useNavigate();
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -16,6 +18,7 @@ const RegisterScreen = ({ onSignUp }) => {
     setPassword('');
     setConfirmPassword('');
     username = '';
+    navigate('/login');
   };
 
   return (
