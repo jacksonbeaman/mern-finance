@@ -18,6 +18,12 @@ const lastUser = localStorage.getItem(
     )
   : null;
 
+const userToken = lastUser
+  ? localStorage.getItem(
+      `CognitoIdentityServiceProvider.${process.env.REACT_APP_AWS_COGNITO_USER_POOL_WEB_CLIENT_ID}.${lastUser}.idToken`
+    )
+  : null;
+
 const amplifyConfig = {
   Auth: {
     // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
@@ -39,7 +45,7 @@ const amplifyConfig = {
 };
 
 const App = () => {
-  const [user, setUser] = useState(lastUser);
+  const [user, setUser] = useState({ lastUser, userToken });
 
   Amplify.configure(amplifyConfig);
 
@@ -98,7 +104,7 @@ const App = () => {
   return (
     <>
       <Router>
-        {user ? <UserHeader onSignOut={signOut} /> : <Header />}
+        {user.lastUser ? <UserHeader onSignOut={signOut} /> : <Header />}
         <Routes>
           <Route path='/' element={<HomeScreen />} />
           <Route path='/login' element={<LoginScreen onSignIn={signIn} />} />
@@ -109,7 +115,11 @@ const App = () => {
           <Route
             path='/quote'
             element={
-              !user ? <LoginScreen onSignIn={signIn} /> : <QuoteScreen />
+              !user.lastUser ? (
+                <LoginScreen onSignIn={signIn} />
+              ) : (
+                <QuoteScreen />
+              )
             }
           />
         </Routes>
