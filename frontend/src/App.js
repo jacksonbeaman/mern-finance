@@ -51,7 +51,7 @@ const App = () => {
       });
       console.log(user);
     } catch (error) {
-      console.log('error signing up:', error);
+      console.error('error signing up:', error);
     }
   };
 
@@ -61,7 +61,7 @@ const App = () => {
       console.log(user);
       setUser(user.username);
     } catch (error) {
-      console.log('error signing in', error);
+      console.error('error signing in', error);
     }
   };
 
@@ -70,7 +70,7 @@ const App = () => {
       await Auth.signOut();
       setUser(null);
     } catch (error) {
-      console.log('error signing out: ', error);
+      console.error('error signing out: ', error);
     }
   };
 
