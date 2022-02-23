@@ -46,6 +46,12 @@ const amplifyConfig = {
 
 const App = () => {
   const [user, setUser] = useState({ lastUser, userToken });
+  const [res, setRes] = useState({
+    symbol: null,
+    companyName: null,
+    price: null,
+  });
+  const [error, setError] = useState({ message: null });
 
   Amplify.configure(amplifyConfig);
 
@@ -65,7 +71,10 @@ const App = () => {
     try {
       const user = await Auth.signIn(username, password);
       console.log(user);
-      setUser(user.username);
+      setUser({
+        lastUser: user.username,
+        userToken: user.signInUserSession.idToken.jwtToken,
+      });
     } catch (error) {
       console.error('error signing in', error);
     }
@@ -74,32 +83,41 @@ const App = () => {
   const signOut = async () => {
     try {
       await Auth.signOut();
-      setUser(null);
+      setUser({ username: null, userToken: null });
     } catch (error) {
       console.error('error signing out: ', error);
     }
   };
 
-  // const getQuote = async (symbol) => {
-  //   try {
-  //     const { data } = await axios.get(
-  //       `https://c5un9qkyu2.execute-api.us-west-2.amazonaws.com/prod?symbol=${symbol}`
-  //     );
-  //     res.json({
-  //       symbol: data.symbol,
-  //       companyName: data.companyName,
-  //       price: data.latestPrice,
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const getQuote = async (symbol) => {
+    try {
+      const settings = {
+        url: `/quote?symbol=${symbol}`,
+        baseURL: 'https://c5un9qkyu2.execute-api.us-west-2.amazonaws.com/prod',
+        method: 'get',
+        timeout: 0,
+        headers: {
+          Authorization: user.userToken,
+        },
+      };
+      const { data } = await axios(settings);
+      console.log(data);
+      setRes({
+        symbol: data.symbol,
+        companyName: data.companyName,
+        price: data.price,
+      });
+    } catch (error) {
+      console.log(error);
+      setError(error);
+    }
+  };
 
   console.log(user);
 
   // You can get the current config object
   const currentConfig = Auth.configure();
-  console.log(currentConfig.signInUserSession.idToken.jwtToken);
+  console.log(currentConfig);
 
   return (
     <>
@@ -118,7 +136,7 @@ const App = () => {
               !user.lastUser ? (
                 <LoginScreen onSignIn={signIn} />
               ) : (
-                <QuoteScreen />
+                <QuoteScreen onGetQuote={getQuote} res={res} error={error} />
               )
             }
           />

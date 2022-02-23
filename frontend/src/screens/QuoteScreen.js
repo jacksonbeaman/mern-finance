@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import Button from '../components/button/Button';
+import PropTypes from 'prop-types';
 
-const QuoteScreen = () => {
-  const [symbol, setSymbol] = useState('');
-  const [quote, setQuote] = useState(null);
+const QuoteScreen = ({
+  onGetQuote,
+  res: { symbol, companyName, price },
+  error,
+}) => {
+  const [inputSymbol, setInputSymbol] = useState('');
 
   const submitHandler = (e) => {
     e.preventDefault();
-    setSymbol(symbol.trim());
-    alert(symbol);
-    setSymbol('');
+    setInputSymbol(inputSymbol.trim());
+    onGetQuote(inputSymbol);
+    setInputSymbol('');
   };
   return (
     <>
@@ -20,18 +24,33 @@ const QuoteScreen = () => {
             <input
               type='text'
               placeholder='Enter symbol'
-              value={symbol}
-              onChange={(e) => setSymbol(e.target.value)}
+              value={inputSymbol}
+              onChange={(e) => setInputSymbol(e.target.value)}
             ></input>
             <Button type='submit' text='Get Quote' />
           </form>
-          {quote && (
-            <span>{`A share of this company (symbol) costs $${quote}`}</span>
+          {symbol && (
+            <span>{`A share of ${companyName} [${symbol}] costs $${price}`}</span>
           )}
         </div>
       </div>
     </>
   );
+};
+
+QuoteScreen.defaultProps = {
+  res: null,
+  error: null,
+};
+
+QuoteScreen.proptype = {
+  onGetQuote: PropTypes.func.isRequired,
+  res: PropTypes.shape({
+    symbol: PropTypes.string,
+    companyName: PropTypes.string,
+    price: PropTypes.string,
+  }),
+  error: PropTypes.object,
 };
 
 export default QuoteScreen;
