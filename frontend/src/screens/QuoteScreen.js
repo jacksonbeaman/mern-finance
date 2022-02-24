@@ -30,7 +30,7 @@ const QuoteScreen = ({
             <Button type='submit' text='Get Quote' />
           </form>
           {symbol && (
-            <span>{`A share of ${companyName} [${symbol}] costs $${price}`}</span>
+            <span>{`A share of ${companyName} (${symbol}) costs $${price}`}</span>
           )}
         </div>
       </div>

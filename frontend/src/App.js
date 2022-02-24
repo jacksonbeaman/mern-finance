@@ -46,7 +46,7 @@ const amplifyConfig = {
 
 const App = () => {
   const [user, setUser] = useState({ lastUser, userToken });
-  const [res, setRes] = useState({
+  const [res, setQuote] = useState({
     symbol: null,
     companyName: null,
     price: null,
@@ -102,7 +102,7 @@ const App = () => {
       };
       const { data } = await axios(settings);
       console.log(data);
-      setRes({
+      setQuote({
         symbol: data.symbol,
         companyName: data.companyName,
         price: data.price,
