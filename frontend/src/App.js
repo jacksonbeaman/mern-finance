@@ -31,7 +31,7 @@ const amplifyConfig = {
 };
 
 const App = () => {
-  const [user, setUser] = useState({ lastUser, userToken });
+  const [user, setUser] = useState({ currentUser: null, userToken: null });
   const [res, setQuote] = useState({
     symbol: null,
     companyName: null,
@@ -58,7 +58,7 @@ const App = () => {
       const user = await Auth.signIn(username, password);
       console.log(user);
       setUser({
-        lastUser: user.username,
+        currentUser: user.username,
         userToken: user.signInUserSession.idToken.jwtToken,
       });
     } catch (error) {
@@ -108,7 +108,7 @@ const App = () => {
   return (
     <>
       <Router>
-        {user.lastUser ? <UserHeader onSignOut={signOut} /> : <Header />}
+        {user.currentUser ? <UserHeader onSignOut={signOut} /> : <Header />}
         <Routes>
           <Route path='/' element={<HomeScreen />} />
           <Route path='/login' element={<LoginScreen onSignIn={signIn} />} />
@@ -119,7 +119,7 @@ const App = () => {
           <Route
             path='/quote'
             element={
-              !user.lastUser ? (
+              !user.currentUser ? (
                 <LoginScreen onSignIn={signIn} />
               ) : (
                 <QuoteScreen onGetQuote={getQuote} res={res} error={error} />
