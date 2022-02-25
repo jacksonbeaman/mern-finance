@@ -43,11 +43,10 @@ const App = () => {
 
   const signUp = async ({ username, password }) => {
     try {
-      const { user } = await Auth.signUp({
+      await Auth.signUp({
         username,
         password,
       });
-      console.log(user);
     } catch (error) {
       console.error('error signing up:', error);
     }
@@ -56,7 +55,6 @@ const App = () => {
   const signIn = async ({ username, password }) => {
     try {
       const user = await Auth.signIn(username, password);
-      console.log(user);
       setUser({
         currentUser: user.username,
         userToken: user.signInUserSession.idToken.jwtToken,
@@ -87,7 +85,6 @@ const App = () => {
         },
       };
       const { data } = await axios(settings);
-      console.log(data);
       setQuote({
         symbol: data.symbol,
         companyName: data.companyName,
@@ -99,11 +96,9 @@ const App = () => {
     }
   };
 
-  console.log(user);
-
   // You can get the current config object
-  const currentConfig = Auth.configure();
-  console.log(currentConfig);
+  // const currentConfig = Auth.configure();
+  // console.log(currentConfig);
 
   return (
     <>
