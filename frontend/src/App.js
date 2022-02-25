@@ -10,20 +10,6 @@ import RegisterScreen from './screens/RegisterScreen';
 import UserHeader from './components/userHeader/UserHeader';
 import QuoteScreen from './screens/QuoteScreen';
 
-const lastUser = localStorage.getItem(
-  `CognitoIdentityServiceProvider.${process.env.REACT_APP_AWS_COGNITO_USER_POOL_WEB_CLIENT_ID}.LastAuthUser`
-)
-  ? localStorage.getItem(
-      `CognitoIdentityServiceProvider.${process.env.REACT_APP_AWS_COGNITO_USER_POOL_WEB_CLIENT_ID}.LastAuthUser`
-    )
-  : null;
-
-const userToken = lastUser
-  ? localStorage.getItem(
-      `CognitoIdentityServiceProvider.${process.env.REACT_APP_AWS_COGNITO_USER_POOL_WEB_CLIENT_ID}.${lastUser}.idToken`
-    )
-  : null;
-
 const amplifyConfig = {
   Auth: {
     // REQUIRED only for Federated Authentication - Amazon Cognito Identity Pool ID
