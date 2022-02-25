@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Amplify, { Auth } from 'aws-amplify';
 import axios from 'axios';
@@ -40,6 +40,24 @@ const App = () => {
   const [error, setError] = useState({ message: null });
 
   Amplify.configure(amplifyConfig);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        if (!user.currentUser) {
+          const {
+            username,
+            signInUserSession: {
+              idToken: { jwtToken },
+            },
+          } = await Auth.currentAuthenticatedUser();
+          setUser({ currentUser: username, userToken: jwtToken });
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [user.currentUser]);
 
   const signUp = async ({ username, password }) => {
     try {
