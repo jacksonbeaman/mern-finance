@@ -2,55 +2,70 @@ import { useState } from 'react';
 import Button from '../components/button/Button';
 import PropTypes from 'prop-types';
 
-const QuoteScreen = ({
+const BuyScreen = ({
   onGetQuote,
   quote: { symbol, companyName, price },
   error,
 }) => {
   const [inputSymbol, setInputSymbol] = useState('');
+  const [inputShares, setInputShares] = useState(null);
 
   const submitHandler = (e) => {
     e.preventDefault();
     setInputSymbol(inputSymbol.trim());
     onGetQuote(inputSymbol);
     setInputSymbol('');
+    if (symbol) {
+      alert(
+        `You have purchased ${inputShares} shares of ${companyName} (${symbol} at $${price}) per share.`
+      );
+    }
+    // setInputShares(null);
   };
   return (
     <>
       <div className={`container + formScreen`}>
         <div className='formContainer'>
-          <h1>Lookup Symbol</h1>
+          <h1>Buy</h1>
           <form onSubmit={submitHandler}>
             <input
               type='text'
-              placeholder='Enter symbol'
+              placeholder='Symbol'
               value={inputSymbol}
               onChange={(e) => setInputSymbol(e.target.value)}
             ></input>
-            <Button type='submit' text='Get Quote' />
+            <input
+              type='number'
+              min='1'
+              placeholder='Shares'
+              value={inputShares}
+              onChange={(e) => setInputShares(e.target.value)}
+            ></input>
+            <Button type='submit' text='Buy' />
           </form>
-          {symbol && (
-            <span>{`A share of ${companyName} (${symbol}) costs $${price}`}</span>
-          )}
         </div>
       </div>
     </>
   );
 };
 
-QuoteScreen.defaultProps = {
+BuyScreen.defaultProps = {
   quote: null,
   error: null,
 };
 
-QuoteScreen.proptype = {
+BuyScreen.proptype = {
   onGetQuote: PropTypes.func.isRequired,
   quote: PropTypes.shape({
     symbol: PropTypes.string,
     companyName: PropTypes.string,
     price: PropTypes.string,
   }),
+  buy: PropTypes.shape(
+    { sharesRequested: PropTypes.number },
+    { sharesBought: PropTypes.number }
+  ),
   error: PropTypes.object,
 };
 
-export default QuoteScreen;
+export default BuyScreen;

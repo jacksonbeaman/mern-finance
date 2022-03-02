@@ -32,7 +32,9 @@ const UserHeader = ({ onSignOut }) => {
             <li>
               <Link to='/quote'>Quote</Link>
             </li>
-            <li>Buy</li>
+            <li>
+              <Link to='/buy'>Buy</Link>
+            </li>
             <li>Sell</li>
             <li>History</li>
           </ul>
@@ -54,7 +56,9 @@ const UserHeader = ({ onSignOut }) => {
                   <li>
                     <Link to='/quote'>Quote</Link>
                   </li>
-                  <li>Buy</li>
+                  <li>
+                    <Link to='/buy'>Buy</Link>
+                  </li>
                   <li>Sell</li>
                   <li>History</li>
                 </ul>

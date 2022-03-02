@@ -9,6 +9,7 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import UserHeader from './components/userHeader/UserHeader';
 import QuoteScreen from './screens/QuoteScreen';
+import BuyScreen from './screens/BuyScreen';
 
 const amplifyConfig = {
   Auth: {
@@ -32,7 +33,7 @@ const amplifyConfig = {
 
 const App = () => {
   const [user, setUser] = useState({ currentUser: null, userToken: null });
-  const [res, setQuote] = useState({
+  const [quote, setQuote] = useState({
     symbol: null,
     companyName: null,
     price: null,
@@ -133,9 +134,23 @@ const App = () => {
             path='/quote'
             element={
               !user.currentUser ? (
+                <LoginScreen onSignIn={signIn} quote={quote} error={error} />
+              ) : (
+                <QuoteScreen
+                  onGetQuote={getQuote}
+                  quote={quote}
+                  error={error}
+                />
+              )
+            }
+          />
+          <Route
+            path='/buy'
+            element={
+              !user.currentUser ? (
                 <LoginScreen onSignIn={signIn} />
               ) : (
-                <QuoteScreen onGetQuote={getQuote} res={res} error={error} />
+                <BuyScreen onGetQuote={getQuote} quote={quote} error={error} />
               )
             }
           />
