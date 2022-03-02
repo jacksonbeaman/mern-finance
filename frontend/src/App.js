@@ -10,6 +10,7 @@ import RegisterScreen from './screens/RegisterScreen';
 import UserHeader from './components/userHeader/UserHeader';
 import QuoteScreen from './screens/QuoteScreen';
 import BuyScreen from './screens/BuyScreen';
+import SellScreen from './screens/SellScreen';
 
 const amplifyConfig = {
   Auth: {
@@ -151,6 +152,16 @@ const App = () => {
                 <LoginScreen onSignIn={signIn} />
               ) : (
                 <BuyScreen onGetQuote={getQuote} quote={quote} error={error} />
+              )
+            }
+          />
+          <Route
+            path='/sell'
+            element={
+              !user.currentUser ? (
+                <LoginScreen onSignIn={signIn} />
+              ) : (
+                <SellScreen onGetQuote={getQuote} quote={quote} error={error} />
               )
             }
           />
