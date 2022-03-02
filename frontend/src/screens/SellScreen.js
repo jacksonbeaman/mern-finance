@@ -45,7 +45,7 @@ const SellScreen = ({
           <h1>Sell</h1>
           <form onSubmit={submitHandler}>
             <select onChange={(e) => setInputSymbol(e.target.value)}>
-              <option selected>Symbol</option>
+              <option defaultValue={''}>Symbol</option>
               {portfolio.positions.map(({ symbol }, index) => (
                 <option key={`${index}-${symbol}`} value={symbol}>
                   {symbol}
