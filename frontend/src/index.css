@@ -111,7 +111,8 @@ h6 {
   width: 100%;
 }
 
-form input {
+form input,
+form select {
   height: 3rem;
   background-color: #f7f7f9;
   border: 0 solid #ced4da;
