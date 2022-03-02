@@ -8,7 +8,7 @@ const BuyScreen = ({
   error,
 }) => {
   const [inputSymbol, setInputSymbol] = useState('');
-  const [inputShares, setInputShares] = useState(null);
+  const [inputShares, setInputShares] = useState('');
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ const BuyScreen = ({
         `You have purchased ${inputShares} shares of ${companyName} (${symbol} at $${price}) per share.`
       );
     }
-    // setInputShares(null);
+    // setInputShares('');
   };
   return (
     <>

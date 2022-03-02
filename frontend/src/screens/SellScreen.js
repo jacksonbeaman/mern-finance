@@ -7,7 +7,7 @@ const SellScreen = ({
   error,
 }) => {
   const [inputSymbol, setInputSymbol] = useState('');
-  const [inputShares, setInputShares] = useState(null);
+  const [inputShares, setInputShares] = useState('');
 
   const portfolio = {
     positions: [
@@ -35,7 +35,7 @@ const SellScreen = ({
     onGetQuote(inputSymbol);
     alert(`${inputSymbol} and ${inputShares}`);
     setInputSymbol('');
-    setInputShares(null);
+    setInputShares('');
   };
 
   return (
