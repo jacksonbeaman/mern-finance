@@ -112,7 +112,7 @@ const App = () => {
       });
     } catch (error) {
       console.log(error);
-      setError(error);
+      setError({ message: error });
     }
   };
 
