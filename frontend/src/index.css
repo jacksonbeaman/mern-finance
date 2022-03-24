@@ -168,3 +168,66 @@ a:hover.linkContainer,
 a:active.linkContainer {
   text-decoration: none;
 }
+
+/* Tables */
+
+.tableScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 80px;
+  min-height: calc(100vh - 172px);
+  position: relative;
+}
+
+.tableContainer {
+  flex-basis: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 100%;
+  padding: 0 1rem;
+}
+
+.tableContainer h1 {
+  padding-bottom: 1rem;
+}
+
+table,
+thead,
+tbody,
+tfoot,
+tr,
+th,
+td {
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+table {
+  width: 100%;
+  text-align: left;
+}
+
+tr th,
+tr td {
+  width: 20%;
+}
+
+tr th:nth-child(2),
+tr td:nth-child(2) {
+  width: 40%;
+}
+
+tbody tr:nth-of-type(odd) {
+  background-color: #f7f7f9;
+}
+
+thead tr {
+  border-top: 1px solid #ced4da;
+  border-bottom: 2px solid #ced4da;
+}
+
+tbody tr {
+  border-bottom: 1px solid #ced4da;
+}

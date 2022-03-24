@@ -11,6 +11,7 @@ import UserHeader from './components/userHeader/UserHeader';
 import QuoteScreen from './screens/QuoteScreen';
 import BuyScreen from './screens/BuyScreen';
 import SellScreen from './screens/SellScreen';
+import UserHomeScreen from './screens/UserHomeScreen';
 
 const amplifyConfig = {
   Auth: {
@@ -125,7 +126,20 @@ const App = () => {
       <Router>
         {user.currentUser ? <UserHeader onSignOut={signOut} /> : <Header />}
         <Routes>
-          <Route path='/' element={<HomeScreen />} />
+          <Route
+            path='/'
+            element={
+              user.currentUser ? (
+                <UserHomeScreen
+                  onGetQuote={getQuote}
+                  quote={quote}
+                  error={error}
+                />
+              ) : (
+                <HomeScreen />
+              )
+            }
+          />
           <Route path='/login' element={<LoginScreen onSignIn={signIn} />} />
           <Route
             path='/register'
