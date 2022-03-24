@@ -97,7 +97,7 @@ const App = () => {
     try {
       const settings = {
         url: `/quote?symbol=${symbol}`,
-        baseURL: 'https://c5un9qkyu2.execute-api.us-west-2.amazonaws.com/prod',
+        baseURL: `${process.env.AWS_API_GATEWAY_INVOKE_URL}`,
         method: 'get',
         timeout: 0,
         headers: {
