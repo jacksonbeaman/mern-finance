@@ -108,7 +108,7 @@ const App = () => {
       setQuote({
         symbol: data.symbol,
         companyName: data.companyName,
-        price: data.price,
+        price: data.latestPrice,
       });
     } catch (error) {
       console.log(error);
