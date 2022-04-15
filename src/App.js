@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Amplify, { Auth } from 'aws-amplify';
-import axios from 'axios';
 import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import HomeScreen from './screens/HomeScreen';
@@ -12,6 +11,7 @@ import QuoteScreen from './screens/QuoteScreen';
 import BuyScreen from './screens/BuyScreen';
 import SellScreen from './screens/SellScreen';
 import UserHomeScreen from './screens/UserHomeScreen';
+import { signIn, signOut } from './utils/fetches';
 
 const amplifyConfig = {
   Auth: {
@@ -35,11 +35,7 @@ const amplifyConfig = {
 
 const App = () => {
   const [user, setUser] = useState({ currentUser: null, userToken: null });
-  const [quote, setQuote] = useState({
-    symbol: null,
-    companyName: null,
-    price: null,
-  });
+
   const [error, setError] = useState({ message: null });
 
   Amplify.configure(amplifyConfig);
@@ -62,60 +58,11 @@ const App = () => {
     })();
   }, [user.currentUser]);
 
-  const signUp = async ({ username, password }) => {
-    try {
-      await Auth.signUp({
-        username,
-        password,
-      });
-    } catch (error) {
-      console.error('error signing up:', error);
-    }
+  const onSignIn = async ({ username, password }) => {
+    setUser(await signIn(username, password));
   };
 
-  const signIn = async ({ username, password }) => {
-    try {
-      const user = await Auth.signIn(username, password);
-      setUser({
-        currentUser: user.username,
-        userToken: user.signInUserSession.idToken.jwtToken,
-      });
-    } catch (error) {
-      console.error('error signing in', error);
-    }
-  };
-
-  const signOut = async () => {
-    try {
-      await Auth.signOut();
-      setUser({ username: null, userToken: null });
-    } catch (error) {
-      console.error('error signing out: ', error);
-    }
-  };
-
-  const getQuote = async (symbol) => {
-    try {
-      const settings = {
-        url: `/quote?symbol=${symbol}`,
-        baseURL: `${process.env.AWS_API_GATEWAY_INVOKE_URL}`,
-        method: 'get',
-        timeout: 0,
-        headers: {
-          Authorization: user.userToken,
-        },
-      };
-      const { data } = await axios(settings);
-      setQuote({
-        symbol: data.symbol,
-        companyName: data.companyName,
-        price: data.latestPrice,
-      });
-    } catch (error) {
-      console.log(error);
-      setError({ message: error });
-    }
-  };
+  const onSignOut = async () => setUser(await signOut());
 
   // You can get the current config object
   // const currentConfig = Auth.configure();
@@ -124,38 +71,27 @@ const App = () => {
   return (
     <>
       <Router>
-        {user.currentUser ? <UserHeader onSignOut={signOut} /> : <Header />}
+        {user.currentUser ? <UserHeader onSignOut={onSignOut} /> : <Header />}
         <Routes>
           <Route
             path='/'
             element={
               user.currentUser ? (
-                <UserHomeScreen
-                  onGetQuote={getQuote}
-                  quote={quote}
-                  error={error}
-                />
+                <UserHomeScreen userToken={user.userToken} />
               ) : (
                 <HomeScreen />
               )
             }
           />
-          <Route path='/login' element={<LoginScreen onSignIn={signIn} />} />
-          <Route
-            path='/register'
-            element={<RegisterScreen onSignUp={signUp} />}
-          />
+          <Route path='/login' element={<LoginScreen onSignIn={onSignIn} />} />
+          <Route path='/register' element={<RegisterScreen />} />
           <Route
             path='/quote'
             element={
               !user.currentUser ? (
-                <LoginScreen onSignIn={signIn} quote={quote} error={error} />
+                <LoginScreen onSignIn={onSignIn} />
               ) : (
-                <QuoteScreen
-                  onGetQuote={getQuote}
-                  quote={quote}
-                  error={error}
-                />
+                <QuoteScreen userToken={user.userToken} />
               )
             }
           />
@@ -163,9 +99,9 @@ const App = () => {
             path='/buy'
             element={
               !user.currentUser ? (
-                <LoginScreen onSignIn={signIn} />
+                <LoginScreen onSignIn={onSignIn} />
               ) : (
-                <BuyScreen onGetQuote={getQuote} quote={quote} error={error} />
+                <BuyScreen />
               )
             }
           />
@@ -173,9 +109,9 @@ const App = () => {
             path='/sell'
             element={
               !user.currentUser ? (
-                <LoginScreen onSignIn={signIn} />
+                <LoginScreen onSignIn={onSignIn} />
               ) : (
-                <SellScreen onGetQuote={getQuote} quote={quote} error={error} />
+                <SellScreen />
               )
             }
           />
