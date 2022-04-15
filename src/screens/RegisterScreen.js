@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/button/Button';
+import { signUp } from '../utils/fetches';
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState('');
@@ -9,10 +10,10 @@ const RegisterScreen = () => {
 
   const navigate = useNavigate();
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     let username = email;
-    onSignUp({ username, password });
+    await signUp(username, password);
     alert(`${email}, ${password}, ${confirmPassword}`);
     setEmail('');
     setPassword('');
