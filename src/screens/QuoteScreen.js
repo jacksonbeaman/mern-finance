@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import Button from '../components/button/Button';
-import PropTypes from 'prop-types';
 
 const QuoteScreen = ({ userToken }) => {
   const [inputSymbol, setInputSymbol] = useState('');
@@ -37,21 +36,6 @@ const QuoteScreen = ({ userToken }) => {
       </div>
     </>
   );
-};
-
-QuoteScreen.defaultProps = {
-  quote: null,
-  error: null,
-};
-
-QuoteScreen.proptype = {
-  onGetQuote: PropTypes.func.isRequired,
-  quote: PropTypes.shape({
-    symbol: PropTypes.string,
-    companyName: PropTypes.string,
-    price: PropTypes.string,
-  }),
-  error: PropTypes.object,
 };
 
 export default QuoteScreen;
