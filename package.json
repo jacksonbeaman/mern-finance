@@ -17,7 +17,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "dev": "set NODE_ENV=local && react-scripts start",
+    "start": "react-scripts start",
     "qa": "NODE_ENV=qa react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
