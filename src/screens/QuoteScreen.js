@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Button from '../components/button/Button';
+import { getQuote } from '../utils/fetches';
 
 const QuoteScreen = ({ userToken }) => {
   const [inputSymbol, setInputSymbol] = useState('');
@@ -9,10 +10,11 @@ const QuoteScreen = ({ userToken }) => {
     price: null,
   });
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
     setInputSymbol(inputSymbol.trim());
-    onGetQuote(inputSymbol);
+    const fetchedQuote = await getQuote(inputSymbol, userToken);
+    setQuote(fetchedQuote);
     setInputSymbol('');
   };
   return (
