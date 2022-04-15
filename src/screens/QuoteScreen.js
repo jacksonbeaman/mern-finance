@@ -2,12 +2,13 @@ import { useState } from 'react';
 import Button from '../components/button/Button';
 import PropTypes from 'prop-types';
 
-const QuoteScreen = ({
-  onGetQuote,
-  quote: { symbol, companyName, price },
-  error,
-}) => {
+const QuoteScreen = ({ userToken }) => {
   const [inputSymbol, setInputSymbol] = useState('');
+  const [{ symbol, companyName, price }, setQuote] = useState({
+    symbol: null,
+    companyName: null,
+    price: null,
+  });
 
   const submitHandler = (e) => {
     e.preventDefault();
