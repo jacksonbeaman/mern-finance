@@ -43,14 +43,27 @@ const UserHomeScreen = ({ userToken }) => {
                   <td>{position.symbol}</td>
                   <td>{position.companyName}</td>
                   <td>{position.shares}</td>
-                  <td>${positionValues[position.symbol]}</td>
+                  <td>
+                    $
+                    {positionValues[position.symbol] &&
+                      positionValues[position.symbol]
+                        .toFixed(2)
+                        .toString()
+                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  </td>
                 </tr>
               ))}
               <tr>
                 <td>CASH</td>
                 <td></td>
                 <td></td>
-                <td>${portfolio.cash}</td>
+                <td>
+                  $
+                  {portfolio.cash
+                    .toFixed(2)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                </td>
               </tr>
               <tr>
                 <td></td>
@@ -64,7 +77,9 @@ const UserHomeScreen = ({ userToken }) => {
                         (acc, positionValue) => acc + positionValue,
                         portfolio.cash
                       )
-                      .toFixed(2)}
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </td>
               </tr>
             </tbody>
