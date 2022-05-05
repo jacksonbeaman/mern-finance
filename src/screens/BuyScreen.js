@@ -25,12 +25,6 @@ const BuyScreen = ({ userToken }) => {
     setQuote(fetchedQuote);
     setTransactedShares(inputShares);
     setInputSymbol('');
-    if (symbol) {
-      alert(
-        `You have purchased ${inputShares} shares of ${companyName} (${symbol} at $${price}) per share.`
-      );
-    }
-    // setInputShares('');
     setInputShares('');
   };
   return (
@@ -54,6 +48,11 @@ const BuyScreen = ({ userToken }) => {
             ></input>
             <Button type='submit' text='Buy' />
           </form>
+          {symbol && (
+            <span>
+              {`You have purchased ${transactedShares} shares of ${companyName} (${symbol}) at $${price} per share.`}
+            </span>
+          )}
         </div>
       </div>
     </>
