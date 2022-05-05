@@ -11,6 +11,7 @@ import QuoteScreen from './screens/QuoteScreen';
 import BuyScreen from './screens/BuyScreen';
 import SellScreen from './screens/SellScreen';
 import UserHomeScreen from './screens/UserHomeScreen';
+import HistoryScreen from './screens/HistoryScreen';
 import { signIn, signOut } from './utils/fetches';
 
 const amplifyConfig = {
@@ -115,6 +116,13 @@ const App = () => {
               )
             }
           />
+          <Route
+            path='/history'
+            element={
+              !user.currentUser ? (
+                <LoginScreen onSignIn={onSignIn} />
+              ) : (
+                <HistoryScreen />
               )
             }
           />
