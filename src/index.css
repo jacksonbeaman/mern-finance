@@ -181,12 +181,12 @@ a:active.linkContainer {
 }
 
 .tableContainer {
-  flex-basis: 85%;
+  flex-basis: 100%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   max-width: 100%;
-  padding: 0 1rem;
+  padding: 1rem 1rem;
 }
 
 .tableContainer h1 {
@@ -209,13 +209,13 @@ table {
   text-align: left;
 }
 
-tr th,
-tr td {
+.portfolioTable th,
+.portfolioTable td {
   width: 20%;
 }
 
-tr th:nth-child(2),
-tr td:nth-child(2) {
+.portfolioTable th:nth-child(2),
+.portfolioTable td:nth-child(2) {
   width: 40%;
 }
 
@@ -224,6 +224,7 @@ tbody tr:nth-of-type(odd) {
 }
 
 thead tr {
+  font-weight: bold;
   border-top: 1px solid #ced4da;
   border-bottom: 2px solid #ced4da;
 }
@@ -232,6 +233,6 @@ tbody tr {
   border-bottom: 1px solid #ced4da;
 }
 
-tr:last-child td:last-child {
+.portfolioTable tr:last-child {
   font-weight: bold;
 }
