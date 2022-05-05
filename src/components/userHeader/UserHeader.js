@@ -38,7 +38,9 @@ const UserHeader = ({ onSignOut }) => {
             <li>
               <Link to='/sell'>Sell</Link>
             </li>
-            <li>History</li>
+            <li>
+              <Link to='/history'>History</Link>
+            </li>
           </ul>
         </div>
         <div className={styles.navButtonContainer}>
@@ -64,7 +66,9 @@ const UserHeader = ({ onSignOut }) => {
                   <li>
                     <Link to='/sell'>Sell</Link>
                   </li>
-                  <li>History</li>
+                  <li>
+                    <Link to='/history'>History</Link>
+                  </li>
                 </ul>
                 <Button
                   text='Sign Out'
