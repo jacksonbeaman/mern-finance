@@ -28,7 +28,7 @@ const UserHomeScreen = ({ userToken }) => {
       <div className={`container tableScreen`}>
         <div className='tableContainer'>
           <h1>Portfolio</h1>
-          <table>
+          <table className='portfolioTable'>
             <thead>
               <tr>
                 <th>Symbol</th>
