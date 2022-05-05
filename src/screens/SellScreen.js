@@ -22,8 +22,6 @@ const SellScreen = ({ userToken }) => {
     });
     setTransactedShares('');
     setInputSymbol(inputSymbol.trim());
-    alert(`${inputSymbol} and ${inputShares}`);
-    setInputSymbol('');
     const fetchedQuote = await getQuote(inputSymbol, userToken);
     setQuote(fetchedQuote);
     setTransactedShares(inputShares);
@@ -58,6 +56,11 @@ const SellScreen = ({ userToken }) => {
             ></input>
             <Button type='submit' text='Sell' />
           </form>
+          {symbol && (
+            <span>
+              {`You have sold ${transactedShares} shares of ${companyName} (${symbol}) at $${price} per share.`}
+            </span>
+          )}
         </div>
       </div>
     </>
