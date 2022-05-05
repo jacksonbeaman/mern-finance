@@ -1,19 +1,29 @@
 import { useState } from 'react';
 import Button from '../components/button/Button';
-import PropTypes from 'prop-types';
+import { getQuote } from '../utils/fetches';
 
-const BuyScreen = ({
-  onGetQuote,
-  quote: { symbol, companyName, price },
-  error,
-}) => {
+const BuyScreen = ({ userToken }) => {
   const [inputSymbol, setInputSymbol] = useState('');
   const [inputShares, setInputShares] = useState('');
+  const [{ symbol, companyName, price }, setQuote] = useState({
+    symbol: null,
+    companyName: null,
+    price: null,
+  });
+  const [transactedShares, setTransactedShares] = useState('');
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    setQuote({
+      symbol: null,
+      companyName: null,
+      price: null,
+    });
+    setTransactedShares('');
     setInputSymbol(inputSymbol.trim());
-    onGetQuote(inputSymbol);
+    const fetchedQuote = await getQuote(inputSymbol, userToken);
+    setQuote(fetchedQuote);
+    setTransactedShares(inputShares);
     setInputSymbol('');
     if (symbol) {
       alert(
@@ -21,6 +31,7 @@ const BuyScreen = ({
       );
     }
     // setInputShares('');
+    setInputShares('');
   };
   return (
     <>
@@ -47,25 +58,6 @@ const BuyScreen = ({
       </div>
     </>
   );
-};
-
-BuyScreen.defaultProps = {
-  quote: null,
-  error: null,
-};
-
-BuyScreen.proptype = {
-  onGetQuote: PropTypes.func.isRequired,
-  quote: PropTypes.shape({
-    symbol: PropTypes.string,
-    companyName: PropTypes.string,
-    price: PropTypes.string,
-  }),
-  buy: PropTypes.shape(
-    { sharesRequested: PropTypes.number },
-    { sharesBought: PropTypes.number }
-  ),
-  error: PropTypes.object,
 };
 
 export default BuyScreen;

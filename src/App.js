@@ -101,7 +101,7 @@ const App = () => {
               !user.currentUser ? (
                 <LoginScreen onSignIn={onSignIn} />
               ) : (
-                <BuyScreen />
+                <BuyScreen userToken={user.userToken} />
               )
             }
           />
