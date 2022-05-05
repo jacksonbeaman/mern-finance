@@ -71,7 +71,8 @@ const UserHomeScreen = ({ userToken }) => {
                 <td></td>
                 <td>
                   $
-                  {positionValues &&
+                  {Object.keys(positionValues).length ===
+                    portfolio.positions.length &&
                     Object.values(positionValues)
                       .reduce(
                         (acc, positionValue) => acc + positionValue,
