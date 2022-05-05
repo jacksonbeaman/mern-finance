@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import portfolio from '../portfolio.js';
 import { getQuote } from '../utils/fetches.js';
 
