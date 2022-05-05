@@ -111,7 +111,10 @@ const App = () => {
               !user.currentUser ? (
                 <LoginScreen onSignIn={onSignIn} />
               ) : (
-                <SellScreen />
+                <SellScreen userToken={user.userToken} />
+              )
+            }
+          />
               )
             }
           />

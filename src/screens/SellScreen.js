@@ -1,21 +1,33 @@
 import { useState } from 'react';
 import Button from '../components/button/Button';
+import { getQuote } from '../utils/fetches';
 import portfolio from '../portfolio';
 
-const SellScreen = ({
-  onGetQuote,
-  quote: { symbol, companyName, price },
-  error,
-}) => {
+const SellScreen = ({ userToken }) => {
   const [inputSymbol, setInputSymbol] = useState('');
   const [inputShares, setInputShares] = useState('');
+  const [{ symbol, companyName, price }, setQuote] = useState({
+    symbol: null,
+    companyName: null,
+    price: null,
+  });
+  const [transactedShares, setTransactedShares] = useState('');
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
+    setQuote({
+      symbol: null,
+      companyName: null,
+      price: null,
+    });
+    setTransactedShares('');
     setInputSymbol(inputSymbol.trim());
-    onGetQuote(inputSymbol);
     alert(`${inputSymbol} and ${inputShares}`);
     setInputSymbol('');
+    const fetchedQuote = await getQuote(inputSymbol, userToken);
+    setQuote(fetchedQuote);
+    setTransactedShares(inputShares);
+    // setInputSymbol('');
     setInputShares('');
   };
 
