@@ -111,7 +111,8 @@ h6 {
   width: 100%;
 }
 
-form input {
+form input,
+form select {
   height: 3rem;
   background-color: #f7f7f9;
   border: 0 solid #ced4da;
@@ -166,4 +167,72 @@ a:visited.linkContainer,
 a:hover.linkContainer,
 a:active.linkContainer {
   text-decoration: none;
+}
+
+/* Tables */
+
+.tableScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 80px;
+  min-height: calc(100vh - 172px);
+  position: relative;
+}
+
+.tableContainer {
+  flex-basis: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 100%;
+  padding: 1rem 1rem;
+}
+
+.tableContainer h1 {
+  padding-bottom: 1rem;
+}
+
+table,
+thead,
+tbody,
+tfoot,
+tr,
+th,
+td {
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+table {
+  width: 100%;
+  text-align: left;
+}
+
+.portfolioTable th,
+.portfolioTable td {
+  width: 20%;
+}
+
+.portfolioTable th:nth-child(2),
+.portfolioTable td:nth-child(2) {
+  width: 40%;
+}
+
+tbody tr:nth-of-type(odd) {
+  background-color: #f7f7f9;
+}
+
+thead tr {
+  font-weight: bold;
+  border-top: 1px solid #ced4da;
+  border-bottom: 2px solid #ced4da;
+}
+
+tbody tr {
+  border-bottom: 1px solid #ced4da;
+}
+
+.portfolioTable tr:last-child {
+  font-weight: bold;
 }

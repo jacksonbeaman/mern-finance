@@ -13,6 +13,7 @@ const Hero = ({ sectionId }) => {
   };
 
   useEffect(() => {
+    // useEffect cleans up event listener
     window
       .matchMedia('(max-width: 450px)')
       .addEventListener('change', handleMatches);

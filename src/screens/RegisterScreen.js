@@ -1,16 +1,27 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/button/Button';
+import { signUp } from '../utils/fetches';
 
 const RegisterScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  const submitHandler = (e) => {
+  const navigate = useNavigate();
+
+  const submitHandler = async (e) => {
     e.preventDefault();
+    let username = email;
+    await signUp(username, password);
     alert(`${email}, ${password}, ${confirmPassword}`);
+    setEmail('');
+    setPassword('');
+    setConfirmPassword('');
+    username = '';
+    navigate('/login');
   };
+
   return (
     <>
       <div className={`container + formScreen`}>
