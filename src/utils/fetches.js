@@ -17,9 +17,11 @@ export const signIn = async (username, password) => {
   try {
     const user = await Auth.signIn(username, password);
     console.log(user);
+    console.log(user.attributes.email);
     console.log(user.signInUserSession.idToken.jwtToken);
     return {
       currentUser: user.username,
+      userEmail: user.attributes.email,
       userToken: user.signInUserSession.idToken.jwtToken,
     };
   } catch (error) {
@@ -31,7 +33,7 @@ export const signIn = async (username, password) => {
 export const signOut = async () => {
   try {
     await Auth.signOut();
-    return { username: null, userToken: null };
+    return { username: null, userEmail: null, userToken: null };
   } catch (error) {
     console.error('error signing out: ', error);
     return error;
@@ -54,6 +56,30 @@ export const getQuote = async (symbol, userToken) => {
       symbol: data.symbol,
       companyName: data.companyName,
       price: data.latestPrice,
+    };
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
+// TODO getUser
+export const getUser = async (userEmail, userToken) => {
+  try {
+    const settings = {
+      url: `/getUser?user=${userEmail}`,
+      baseURL: `${process.env.REACT_APP_AWS_API_GATEWAY_INVOKE_URL}`,
+      method: 'get',
+      timeout: 0,
+      headers: {
+        Authorization: userToken,
+      },
+    };
+    const { data } = await axios(settings);
+    return {
+      cash: data.cash,
+      positions: data.positions,
+      transactions: data.positions,
     };
   } catch (error) {
     console.log(error);

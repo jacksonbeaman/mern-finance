@@ -1,27 +1,64 @@
 import { useState, useEffect } from 'react';
 import portfolio from '../portfolio.js';
-import { getQuote } from '../utils/fetches.js';
+import { useStateValue } from '../state/index.js';
+import { SET_USER_DATA } from '../state/types.js';
+import { getQuote, getUser } from '../utils/fetches.js';
 
-const UserHomeScreen = ({ userToken }) => {
+const UserHomeScreen = () => {
+  const [{ currentUser, userToken, cash, positions, transactions }, dispatch] =
+    useStateValue();
   const [positionValues, setPositionValues] = useState({});
 
   useEffect(() => {
-    const getPositionValues = () => {
-      portfolio.positions.forEach(async ({ symbol, shares }) => {
-        try {
-          const { price } = await getQuote(symbol, userToken);
+    // TODO const {positions, positions} = getUser();
 
-          setPositionValues((positionValues) => ({
-            ...positionValues,
-            [symbol]: price * shares,
-          }));
-        } catch (error) {
-          console.error(error);
-        }
-      });
+    const getUserData = async () => {
+      try {
+        const userData = await getUser(currentUser, userToken);
+        dispatch({ type: SET_USER_DATA, payload: userData });
+      } catch (error) {
+        console.error(error);
+      }
     };
-    getPositionValues();
-  }, [userToken]);
+
+    const getPositionValues = () => {
+      for (const symbol in positions) {
+        let shares = positions[symbol];
+        (async () => {
+          try {
+            // TODO fetch companyName
+            const { price } = await getQuote(symbol, userToken);
+
+            setPositionValues((positionValues) => ({
+              ...positionValues,
+              [symbol]: price * shares,
+            }));
+          } catch (error) {
+            console.error(error);
+          }
+        })();
+      }
+    };
+
+    // getPositionValues with static data
+    // const getPositionValues = () => {
+    //   portfolio.positions.forEach(async ({ symbol, shares }) => {
+    //     try {
+    //       const { price } = await getQuote(symbol, userToken);
+
+    //       setPositionValues((positionValues) => ({
+    //         ...positionValues,
+    //         [symbol]: price * shares,
+    //       }));
+    //     } catch (error) {
+    //       console.error(error);
+    //     }
+    //   });
+    // };
+    positions && getPositionValues();
+
+    // TODO rewrite positions data for object instead of array
+  }, [currentUser, userToken, positions, dispatch]);
 
   return (
     <>
