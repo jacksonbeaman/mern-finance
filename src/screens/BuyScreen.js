@@ -46,7 +46,7 @@ const BuyScreen = ({ userToken }) => {
               value={inputShares}
               onChange={(e) => setInputShares(e.target.value)}
             ></input>
-            <Button type='submit' text='Buy' />
+            <Button type='submit' text='Buy' disabled={inputShares < 1} />
           </form>
           {symbol && (
             <span>
