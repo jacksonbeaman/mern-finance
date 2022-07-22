@@ -8,10 +8,9 @@ const UserHomeScreen = () => {
   const [{ currentUser, userToken, cash, positions, transactions }, dispatch] =
     useStateValue();
   const [positionValues, setPositionValues] = useState({});
+  const [positionCompanyName, setPositionCompanyName] = useState({});
 
   useEffect(() => {
-    // TODO const {positions, positions} = getUser();
-
     const getUserData = async () => {
       try {
         const userData = await getUser(currentUser, userToken);
@@ -27,11 +26,16 @@ const UserHomeScreen = () => {
         (async () => {
           try {
             // TODO fetch companyName
-            const { price } = await getQuote(symbol, userToken);
+            const { price, companyName } = await getQuote(symbol, userToken);
 
             setPositionValues((positionValues) => ({
               ...positionValues,
               [symbol]: price * shares,
+            }));
+
+            setPositionCompanyName((positionCompanyName) => ({
+              ...positionCompanyName,
+              [symbol]: companyName,
             }));
           } catch (error) {
             console.error(error);
@@ -40,31 +44,22 @@ const UserHomeScreen = () => {
       }
     };
 
-    // getPositionValues with static data
-    // const getPositionValues = () => {
-    //   portfolio.positions.forEach(async ({ symbol, shares }) => {
-    //     try {
-    //       const { price } = await getQuote(symbol, userToken);
-
-    //       setPositionValues((positionValues) => ({
-    //         ...positionValues,
-    //         [symbol]: price * shares,
-    //       }));
-    //     } catch (error) {
-    //       console.error(error);
-    //     }
-    //   });
-    // };
     positions && getPositionValues();
 
     // TODO rewrite positions data for object instead of array
+    // TODO render transaction data
+    // TODO purchase / sell frontend functionality
+    // TODO fund account
+    // TODO init postCreateUser call on signUp
+    // TODO continue testing coverage
+    // TODO restructure login for server side
   }, [currentUser, userToken, positions, dispatch]);
 
   return (
     <>
       <div className={`container tableScreen`}>
         <div className='tableContainer'>
-          <h1>Portfolio</h1>
+          <h1>Dashboard</h1>
           <table className='portfolioTable'>
             <thead>
               <tr>
