@@ -64,7 +64,6 @@ const AppRouter = () => {
               userToken: jwtToken,
             },
           });
-          console.log(Auth);
         }
       } catch (error) {
         console.error(error);
