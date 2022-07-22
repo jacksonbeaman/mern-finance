@@ -70,31 +70,36 @@ const UserHomeScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {portfolio.positions.map((position, index) => (
-                <tr key={`${index}-${position.symbol}`}>
-                  <td>{position.symbol}</td>
-                  <td>{position.companyName}</td>
-                  <td>{position.shares}</td>
-                  <td>
-                    $
-                    {positionValues[position.symbol] &&
-                      positionValues[position.symbol]
-                        .toFixed(2)
-                        .toString()
-                        .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                  </td>
-                </tr>
-              ))}
+              {positions &&
+                Object.keys(positions).map((symbol, index) => (
+                  <tr key={`${index}-${symbol}`}>
+                    <td>{symbol}</td>
+                    <td>
+                      {positionCompanyName[symbol] &&
+                        positionCompanyName[symbol]}
+                    </td>
+                    <td>{positions[symbol]}</td>
+                    <td>
+                      $
+                      {positionValues[symbol] &&
+                        positionValues[symbol]
+                          .toFixed(2)
+                          .toString()
+                          .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    </td>
+                  </tr>
+                ))}
               <tr>
                 <td>CASH</td>
                 <td></td>
                 <td></td>
                 <td>
                   $
-                  {portfolio.cash
-                    .toFixed(2)
-                    .toString()
-                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  {cash &&
+                    cash
+                      .toFixed(2)
+                      .toString()
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                 </td>
               </tr>
               <tr>
@@ -103,13 +108,12 @@ const UserHomeScreen = () => {
                 <td></td>
                 <td>
                   $
-                  {Object.keys(positionValues).length ===
-                    portfolio.positions.length &&
+                  {positionValues &&
+                    positions &&
+                    Object.keys(positionValues).length ===
+                      Object.keys(positions).length &&
                     Object.values(positionValues)
-                      .reduce(
-                        (acc, positionValue) => acc + positionValue,
-                        portfolio.cash
-                      )
+                      .reduce((acc, positionValue) => acc + positionValue, cash)
                       .toFixed(2)
                       .toString()
                       .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
