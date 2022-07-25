@@ -137,11 +137,7 @@ const AppRouter = () => {
         <Route
           path='/sell'
           element={
-            !currentUser ? (
-              <LoginScreen onSignIn={onSignIn} />
-            ) : (
-              <SellScreen userToken={userToken} />
-            )
+            !currentUser ? <LoginScreen onSignIn={onSignIn} /> : <SellScreen />
           }
         />
         <Route

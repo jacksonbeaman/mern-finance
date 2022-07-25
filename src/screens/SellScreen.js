@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import Button from '../components/button/Button';
 import { getQuote } from '../utils/fetches';
-import portfolio from '../portfolio';
+import { useStateValue } from '../state';
 
-const SellScreen = ({ userToken }) => {
+const SellScreen = () => {
+  const [{ currentUser, userToken, cash, positions, transactions }, dispatch] =
+    useStateValue();
   const [inputSymbol, setInputSymbol] = useState('');
   const [inputShares, setInputShares] = useState('');
   const [{ symbol, companyName, price }, setQuote] = useState({
@@ -37,19 +39,17 @@ const SellScreen = ({ userToken }) => {
           <form onSubmit={submitHandler}>
             <select onChange={(e) => setInputSymbol(e.target.value)}>
               <option defaultValue={''}>Symbol</option>
-              {portfolio.positions.map(({ symbol }, index) => (
-                <option key={`${index}-${symbol}`} value={symbol}>
-                  {symbol}
-                </option>
-              ))}
+              {positions &&
+                Object.keys(positions).map((symbol, index) => (
+                  <option key={`${index}-${symbol}`} value={symbol}>
+                    {symbol}
+                  </option>
+                ))}
             </select>
             <input
               type='number'
               min='1'
-              max={
-                portfolio.positions.find(({ symbol }) => symbol === inputSymbol)
-                  ?.shares
-              }
+              max={inputSymbol.length > 0 ? positions[inputSymbol] : 1}
               placeholder='Shares'
               value={inputShares}
               onChange={(e) => setInputShares(e.target.value)}
