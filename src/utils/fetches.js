@@ -79,7 +79,7 @@ export const getUser = async (userEmail, userToken) => {
     return {
       cash: data.cash,
       positions: data.positions,
-      transactions: data.positions,
+      transactions: data.transactions,
     };
   } catch (error) {
     console.log(error);
