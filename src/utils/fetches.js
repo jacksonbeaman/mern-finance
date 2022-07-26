@@ -33,7 +33,7 @@ export const signIn = async (username, password) => {
 export const signOut = async () => {
   try {
     await Auth.signOut();
-    return { username: null, userEmail: null, userToken: null };
+    return { currentUser: null, userEmail: null, userToken: null };
   } catch (error) {
     console.error('error signing out: ', error);
     return error;
@@ -63,7 +63,6 @@ export const getQuote = async (symbol, userToken) => {
   }
 };
 
-// TODO getUser
 export const getUser = async (userEmail, userToken) => {
   try {
     const settings = {
