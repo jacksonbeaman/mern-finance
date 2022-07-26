@@ -5,15 +5,17 @@ import { SET_USER_DATA } from '../state/types.js';
 import { getQuote, getUser } from '../utils/fetches.js';
 
 const UserHomeScreen = () => {
-  const [{ currentUser, userToken, cash, positions, transactions }, dispatch] =
-    useStateValue();
+  const [
+    { currentUser, userEmail, userToken, cash, positions, transactions },
+    dispatch,
+  ] = useStateValue();
   const [positionValues, setPositionValues] = useState({});
   const [positionCompanyName, setPositionCompanyName] = useState({});
 
   useEffect(() => {
     const getUserData = async () => {
       try {
-        const userData = await getUser(currentUser, userToken);
+        const userData = await getUser(userEmail, userToken);
         dispatch({ type: SET_USER_DATA, payload: userData });
       } catch (error) {
         console.error(error);
@@ -25,7 +27,6 @@ const UserHomeScreen = () => {
         let shares = positions[symbol];
         (async () => {
           try {
-            // TODO fetch companyName
             const { price, companyName } = await getQuote(symbol, userToken);
 
             setPositionValues((positionValues) => ({
