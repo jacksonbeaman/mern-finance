@@ -12,12 +12,11 @@ const SellScreen = () => {
   const [inputSymbol, setInputSymbol] = useState('');
   const [inputShares, setInputShares] = useState('');
   const [
-    { symbol, companyName, price, shares, sharePrice, amount, updatedUserData },
+    { symbol, companyName, shares, sharePrice, amount, updatedUserData },
     setQuote,
   ] = useState({
     symbol: null,
     companyName: null,
-    price: null,
     shares: null,
     sharePrice: null,
     amount: null,
@@ -29,7 +28,6 @@ const SellScreen = () => {
     setQuote({
       symbol: null,
       companyName: null,
-      price: null,
       shares: null,
       sharePrice: null,
       amount: null,
