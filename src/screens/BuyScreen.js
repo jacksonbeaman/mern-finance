@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Button from '../components/button/Button';
 import { getQuote } from '../utils/fetches';
 
-const BuyScreen = ({ userToken }) => {
+const BuyScreen = () => {
   const [inputSymbol, setInputSymbol] = useState('');
   const [inputShares, setInputShares] = useState('');
   const [{ symbol, companyName, price }, setQuote] = useState({
