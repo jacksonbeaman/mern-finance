@@ -107,3 +107,25 @@ export const sellStock = async (userEmail, userToken, symbol, shares) => {
     return error;
   }
 };
+
+export const buyStock = async (userEmail, userToken, symbol, shares) => {
+  try {
+    const settings = {
+      url: '/buy',
+      baseURL: `${process.env.REACT_APP_AWS_API_GATEWAY_INVOKE_URL}`,
+      method: 'post',
+      timeout: 0,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: userToken,
+      },
+      data: { user: userEmail, symbol, shares },
+    };
+
+    const { data } = await axios(settings);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
