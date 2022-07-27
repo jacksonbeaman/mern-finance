@@ -99,6 +99,10 @@ const AppRouter = () => {
   const onSignOut = async () => {
     const userCredentials = await signOut();
     dispatch({ type: SET_USER_CREDENTIALS, payload: userCredentials });
+    dispatch({
+      type: SET_USER_DATA,
+      payload: { cash: null, positions: null, transactions: null },
+    });
   };
 
   // You can get the current config object
