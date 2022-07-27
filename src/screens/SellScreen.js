@@ -1,19 +1,28 @@
 import { useState } from 'react';
 import Button from '../components/button/Button';
-import { getQuote } from '../utils/fetches';
+import { getQuote, sellStock } from '../utils/fetches';
 import { useStateValue } from '../state';
+import { SET_USER_DATA } from '../state/types';
 
 const SellScreen = () => {
-  const [{ currentUser, userToken, cash, positions, transactions }, dispatch] =
-    useStateValue();
+  const [
+    { currentUser, userEmail, userToken, cash, positions, transactions },
+    dispatch,
+  ] = useStateValue();
   const [inputSymbol, setInputSymbol] = useState('');
   const [inputShares, setInputShares] = useState('');
-  const [{ symbol, companyName, price }, setQuote] = useState({
+  const [
+    { symbol, companyName, price, shares, sharePrice, amount, updatedUserData },
+    setQuote,
+  ] = useState({
     symbol: null,
     companyName: null,
     price: null,
+    shares: null,
+    sharePrice: null,
+    amount: null,
+    updatedUserData: null,
   });
-  const [transactedShares, setTransactedShares] = useState('');
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -21,14 +30,36 @@ const SellScreen = () => {
       symbol: null,
       companyName: null,
       price: null,
+      shares: null,
+      sharePrice: null,
+      amount: null,
+      updatedUserData: null,
     });
-    setTransactedShares('');
+
     setInputSymbol(inputSymbol.trim());
-    const fetchedQuote = await getQuote(inputSymbol, userToken);
-    setQuote(fetchedQuote);
-    setTransactedShares(inputShares);
-    // setInputSymbol('');
+
+    const {
+      symbol: updatedSymbol,
+      companyName: updatedCompanyName,
+      shares: updatedShares,
+      sharePrice: updatedSharePrice,
+      amount: updatedAmount,
+      updatedUserData: updatedUserData,
+    } = await sellStock(userEmail, userToken, inputSymbol, inputShares);
+
     setInputShares('');
+    setInputSymbol('');
+
+    setQuote({
+      symbol: updatedSymbol,
+      companyName: updatedCompanyName,
+      shares: updatedShares,
+      sharePrice: updatedSharePrice,
+      amount: updatedAmount,
+      updatedUserData: updatedUserData,
+    });
+
+    dispatch({ type: SET_USER_DATA, payload: updatedUserData });
   };
 
   return (
@@ -58,7 +89,7 @@ const SellScreen = () => {
           </form>
           {symbol && (
             <span>
-              {`You have sold ${transactedShares} shares of ${companyName} (${symbol}) at $${price} per share.`}
+              {`You have sold ${-shares} shares of ${companyName} (${symbol}) at $${sharePrice} per share for a total of $${amount}.`}
             </span>
           )}
         </div>
