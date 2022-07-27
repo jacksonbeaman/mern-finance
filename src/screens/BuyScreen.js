@@ -3,6 +3,10 @@ import Button from '../components/button/Button';
 import { getQuote } from '../utils/fetches';
 
 const BuyScreen = () => {
+  const [
+    { currentUser, userEmail, userToken, cash, positions, transactions },
+    dispatch,
+  ] = useStateValue();
   const [inputSymbol, setInputSymbol] = useState('');
   const [inputShares, setInputShares] = useState('');
   const [{ symbol, companyName, price }, setQuote] = useState({
