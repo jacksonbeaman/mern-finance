@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Button from '../components/button/Button';
-import { getQuote } from '../utils/fetches';
+import { useStateValue } from '../state';
+import { SET_USER_DATA } from '../state/types';
+import { buyStock, getQuote } from '../utils/fetches';
 
 const BuyScreen = () => {
   const [
@@ -9,27 +11,52 @@ const BuyScreen = () => {
   ] = useStateValue();
   const [inputSymbol, setInputSymbol] = useState('');
   const [inputShares, setInputShares] = useState('');
-  const [{ symbol, companyName, price }, setQuote] = useState({
+  const [
+    { symbol, companyName, shares, sharePrice, amount, updatedUserData },
+    setQuote,
+  ] = useState({
     symbol: null,
     companyName: null,
-    price: null,
+    shares: null,
+    sharePrice: null,
+    amount: null,
+    updatedUserData: null,
   });
-  const [transactedShares, setTransactedShares] = useState('');
 
   const submitHandler = async (e) => {
     e.preventDefault();
     setQuote({
       symbol: null,
       companyName: null,
-      price: null,
+      shares: null,
+      sharePrice: null,
+      amount: null,
+      updatedUserData: null,
     });
-    setTransactedShares('');
     setInputSymbol(inputSymbol.trim());
-    const fetchedQuote = await getQuote(inputSymbol, userToken);
-    setQuote(fetchedQuote);
-    setTransactedShares(inputShares);
+
+    const {
+      symbol: updatedSymbol,
+      companyName: updatedCompanyName,
+      shares: updatedShares,
+      sharePrice: updatedSharePrice,
+      amount: updatedAmount,
+      updatedUserData: updatedUserData,
+    } = await buyStock(userEmail, userToken, inputSymbol, inputShares);
+
+    setQuote({
+      symbol: updatedSymbol,
+      companyName: updatedCompanyName,
+      shares: updatedShares,
+      sharePrice: updatedSharePrice,
+      amount: updatedAmount,
+      updatedUserData: updatedUserData,
+    });
+
     setInputSymbol('');
     setInputShares('');
+
+    dispatch({ type: SET_USER_DATA, payload: updatedUserData });
   };
   return (
     <>
@@ -54,7 +81,7 @@ const BuyScreen = () => {
           </form>
           {symbol && (
             <span>
-              {`You have purchased ${transactedShares} shares of ${companyName} (${symbol}) at $${price} per share.`}
+              {`You have purchased ${shares} shares of ${companyName} (${symbol}) at $${sharePrice} per share for a total of $${-amount}.`}
             </span>
           )}
         </div>
