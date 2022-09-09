@@ -7,6 +7,14 @@ export const signUp = async (username, password) => {
       username,
       password,
     });
+
+    const settings = {
+      url: `/createUser?user=${username}`,
+      baseURL: `${process.env.REACT_APP_AWS_API_GATEWAY_INVOKE_URL}`,
+      method: 'post',
+      timeout: 0,
+    };
+    await axios(settings);
   } catch (error) {
     console.error('error signing up:', error);
     return error;
