@@ -11,6 +11,7 @@ const BuyScreen = () => {
   ] = useStateValue();
   const [inputSymbol, setInputSymbol] = useState('');
   const [inputShares, setInputShares] = useState('');
+  const [buyErrorMessage, setBuyErrorMessage] = useState(undefined);
   const [
     { symbol, companyName, shares, sharePrice, amount, updatedUserData },
     setQuote,
@@ -24,39 +25,54 @@ const BuyScreen = () => {
   });
 
   const submitHandler = async (e) => {
-    e.preventDefault();
-    setQuote({
-      symbol: null,
-      companyName: null,
-      shares: null,
-      sharePrice: null,
-      amount: null,
-      updatedUserData: null,
-    });
-    setInputSymbol(inputSymbol.trim());
+    try {
+      e.preventDefault();
+      setBuyErrorMessage(undefined);
+      setQuote({
+        symbol: null,
+        companyName: null,
+        shares: null,
+        sharePrice: null,
+        amount: null,
+        updatedUserData: null,
+      });
 
-    const {
-      symbol: updatedSymbol,
-      companyName: updatedCompanyName,
-      shares: updatedShares,
-      sharePrice: updatedSharePrice,
-      amount: updatedAmount,
-      updatedUserData: updatedUserData,
-    } = await buyStock(userEmail, userToken, inputSymbol, inputShares);
+      setInputSymbol(inputSymbol.trim());
 
-    setQuote({
-      symbol: updatedSymbol,
-      companyName: updatedCompanyName,
-      shares: updatedShares,
-      sharePrice: updatedSharePrice,
-      amount: updatedAmount,
-      updatedUserData: updatedUserData,
-    });
+      const {
+        symbol: updatedSymbol,
+        companyName: updatedCompanyName,
+        shares: updatedShares,
+        sharePrice: updatedSharePrice,
+        amount: updatedAmount,
+        updatedUserData: updatedUserData,
+      } = await buyStock(userEmail, userToken, inputSymbol, inputShares);
 
-    setInputSymbol('');
-    setInputShares('');
-
-    dispatch({ type: SET_USER_DATA, payload: updatedUserData });
+      setQuote({
+        symbol: updatedSymbol,
+        companyName: updatedCompanyName,
+        shares: updatedShares,
+        sharePrice: updatedSharePrice,
+        amount: updatedAmount,
+        updatedUserData: updatedUserData,
+      });
+      setInputSymbol('');
+      setInputShares('');
+      dispatch({ type: SET_USER_DATA, payload: updatedUserData });
+    } catch (error) {
+      // follows Axios catch block error handling logic - see Axios documentation
+      setBuyErrorMessage(
+        error?.response?.data
+          ? error?.response?.data
+          : error?.response
+          ? error?.response
+          : error?.message
+          ? error?.message
+          : undefined
+      );
+      setInputSymbol('');
+      setInputShares('');
+    }
   };
   return (
     <>
@@ -84,6 +100,7 @@ const BuyScreen = () => {
               {`You have purchased ${shares} shares of ${companyName} (${symbol}) at $${sharePrice} per share for a total of $${-amount}.`}
             </span>
           )}
+          {buyErrorMessage && <span>{buyErrorMessage}</span>}
         </div>
       </div>
     </>
