@@ -9,13 +9,34 @@ const QuoteScreen = ({ userToken }) => {
     companyName: null,
     price: null,
   });
+  const [quoteErrorMessage, setQuoteErrorMessage] = useState(undefined);
 
   const submitHandler = async (e) => {
-    e.preventDefault();
-    setInputSymbol(inputSymbol.trim());
-    const fetchedQuote = await getQuote(inputSymbol, userToken);
-    setQuote(fetchedQuote);
-    setInputSymbol('');
+    try {
+      e.preventDefault();
+      setQuoteErrorMessage(undefined);
+      setInputSymbol(inputSymbol.trim());
+      setQuote({
+        symbol: null,
+        companyName: null,
+        price: null,
+      });
+      const fetchedQuote = await getQuote(inputSymbol, userToken);
+      setQuote(fetchedQuote);
+      setInputSymbol('');
+    } catch (error) {
+      // follows Axios catch block error handling logic - see Axios documentation
+      setQuoteErrorMessage(
+        error?.response?.data
+          ? error?.response?.data
+          : error?.response
+          ? error?.response
+          : error?.message
+          ? error?.message
+          : undefined
+      );
+      setInputSymbol('');
+    }
   };
   return (
     <>
@@ -34,6 +55,7 @@ const QuoteScreen = ({ userToken }) => {
           {symbol && (
             <span>{`A share of ${companyName} (${symbol}) costs $${price}`}</span>
           )}
+          {quoteErrorMessage && <span>{quoteErrorMessage}</span>}
         </div>
       </div>
     </>
