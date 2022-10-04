@@ -17,7 +17,7 @@ export const signUp = async (username, password) => {
     await axios(settings);
   } catch (error) {
     console.error('error signing up:', error);
-    return error;
+    throw error;
   }
 };
 
@@ -34,7 +34,7 @@ export const signIn = async (username, password) => {
     };
   } catch (error) {
     console.error('error signing in', error);
-    return error;
+    throw error;
   }
 };
 
@@ -44,7 +44,7 @@ export const signOut = async () => {
     return { currentUser: null, userEmail: null, userToken: null };
   } catch (error) {
     console.error('error signing out: ', error);
-    return error;
+    throw error;
   }
 };
 
@@ -67,7 +67,7 @@ export const getQuote = async (symbol, userToken) => {
     };
   } catch (error) {
     console.log(error);
-    return error;
+    throw error;
   }
 };
 
@@ -90,7 +90,7 @@ export const getUser = async (userEmail, userToken) => {
     };
   } catch (error) {
     console.log(error);
-    return error;
+    throw error;
   }
 };
 
@@ -112,7 +112,7 @@ export const sellStock = async (userEmail, userToken, symbol, shares) => {
     return data;
   } catch (error) {
     console.log(error);
-    return error;
+    throw error;
   }
 };
 
@@ -133,7 +133,6 @@ export const buyStock = async (userEmail, userToken, symbol, shares) => {
     const { data } = await axios(settings);
     return data;
   } catch (error) {
-    console.log(error);
-    return error;
+    throw error;
   }
 };
