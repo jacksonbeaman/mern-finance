@@ -9,7 +9,7 @@ export const signUp = async (username, password) => {
     });
 
     const settings = {
-      url: `/createUser?user=${username}`,
+      url: `/user?user=${username}`,
       baseURL: `${process.env.REACT_APP_AWS_API_GATEWAY_INVOKE_URL}`,
       method: 'post',
       timeout: 0,
@@ -74,7 +74,7 @@ export const getQuote = async (symbol, userToken) => {
 export const getUser = async (userEmail, userToken) => {
   try {
     const settings = {
-      url: `/getUser?user=${userEmail}`,
+      url: `/user?user=${userEmail}`,
       baseURL: `${process.env.REACT_APP_AWS_API_GATEWAY_INVOKE_URL}`,
       method: 'get',
       timeout: 0,
