@@ -11,6 +11,7 @@ const SellScreen = () => {
   ] = useStateValue();
   const [inputSymbol, setInputSymbol] = useState('');
   const [inputShares, setInputShares] = useState('');
+  const [sellErrorMessage, setSellErrorMessage] = useState(undefined);
   const [
     { symbol, companyName, shares, sharePrice, amount, updatedUserData },
     setQuote,
@@ -24,40 +25,56 @@ const SellScreen = () => {
   });
 
   const submitHandler = async (e) => {
-    e.preventDefault();
-    setQuote({
-      symbol: null,
-      companyName: null,
-      shares: null,
-      sharePrice: null,
-      amount: null,
-      updatedUserData: null,
-    });
+    try {
+      e.preventDefault();
+      setSellErrorMessage(undefined);
+      setQuote({
+        symbol: null,
+        companyName: null,
+        shares: null,
+        sharePrice: null,
+        amount: null,
+        updatedUserData: null,
+      });
 
-    setInputSymbol(inputSymbol.trim());
+      setInputSymbol(inputSymbol.trim());
 
-    const {
-      symbol: updatedSymbol,
-      companyName: updatedCompanyName,
-      shares: updatedShares,
-      sharePrice: updatedSharePrice,
-      amount: updatedAmount,
-      updatedUserData: updatedUserData,
-    } = await sellStock(userEmail, userToken, inputSymbol, inputShares);
+      const {
+        symbol: updatedSymbol,
+        companyName: updatedCompanyName,
+        shares: updatedShares,
+        sharePrice: updatedSharePrice,
+        amount: updatedAmount,
+        updatedUserData: updatedUserData,
+      } = await sellStock(userEmail, userToken, inputSymbol, inputShares);
 
-    setInputShares('');
-    setInputSymbol('');
+      setInputShares('');
+      setInputSymbol('');
 
-    setQuote({
-      symbol: updatedSymbol,
-      companyName: updatedCompanyName,
-      shares: updatedShares,
-      sharePrice: updatedSharePrice,
-      amount: updatedAmount,
-      updatedUserData: updatedUserData,
-    });
+      setQuote({
+        symbol: updatedSymbol,
+        companyName: updatedCompanyName,
+        shares: updatedShares,
+        sharePrice: updatedSharePrice,
+        amount: updatedAmount,
+        updatedUserData: updatedUserData,
+      });
 
-    dispatch({ type: SET_USER_DATA, payload: updatedUserData });
+      dispatch({ type: SET_USER_DATA, payload: updatedUserData });
+    } catch (error) {
+      // follows Axios catch block error handling logic - see Axios documentation
+      setSellErrorMessage(
+        error?.response?.data
+          ? error?.response?.data
+          : error?.response
+          ? error?.response
+          : error?.message
+          ? error?.message
+          : undefined
+      );
+      setInputShares('');
+      setInputSymbol('');
+    }
   };
 
   return (
@@ -90,6 +107,7 @@ const SellScreen = () => {
               {`You have sold ${-shares} shares of ${companyName} (${symbol}) at $${sharePrice} per share for a total of $${amount}.`}
             </span>
           )}
+          {sellErrorMessage && <span>{sellErrorMessage}</span>}
         </div>
       </div>
     </>
