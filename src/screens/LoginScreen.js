@@ -1,14 +1,20 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/button/Button';
 
-const LoginScreen = () => {
+const LoginScreen = ({ onSignIn }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const navigate = useNavigate();
+
   const submitHandler = (e) => {
     e.preventDefault();
+    onSignIn({ username: email, password });
     alert(`${email}, ${password}`);
+    setEmail('');
+    setPassword('');
+    navigate('/');
   };
 
   return (

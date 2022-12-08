@@ -1,0 +1,10 @@
+.modalButton {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  z-index: 100;
+}
+
+.hidden {
+  display: none;
+}

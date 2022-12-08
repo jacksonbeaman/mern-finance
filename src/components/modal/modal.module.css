@@ -1,0 +1,56 @@
+.darkBackground {
+  background-color: rgba(0, 0, 0, 0.05);
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: fixed;
+}
+
+.modal {
+  width: 330px;
+  height: 231px;
+  background-color: #fff;
+  z-index: 999999;
+  border-radius: 5px;
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.04);
+  /* positioning */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.buttonClose {
+  position: relative;
+  width: 100%;
+}
+
+.buttonClose button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  margin-top: -9px;
+  margin-right: -9px;
+}
+
+.headingContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 1rem;
+}
+
+.modalFormContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 1rem;
+}
