@@ -136,3 +136,45 @@ export const buyStock = async (userEmail, userToken, symbol, shares) => {
     throw error;
   }
 };
+
+export const fundAccount = async (userEmail, userToken, amount) => {
+  try {
+    const settings = {
+      url: '/fund',
+      baseURL: `${process.env.REACT_APP_AWS_API_GATEWAY_INVOKE_URL}`,
+      method: 'post',
+      timeout: 0,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: userToken,
+      },
+      data: { user: userEmail, cashToDeposit: amount },
+    };
+
+    const { data } = await axios(settings);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const withdrawAccount = async (userEmail, userToken, amount) => {
+  try {
+    const settings = {
+      url: '/withdraw',
+      baseURL: `${process.env.REACT_APP_AWS_API_GATEWAY_INVOKE_URL}`,
+      method: 'post',
+      timeout: 0,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: userToken,
+      },
+      data: { user: userEmail, cashToWithdraw: amount },
+    };
+
+    const { data } = await axios(settings);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
