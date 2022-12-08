@@ -2,7 +2,16 @@ import styles from './button.module.css';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-const Button = ({ text, chevron, fontSize, onClick, type, disabled }) => {
+const Button = ({
+  text,
+  chevron,
+  fontSize,
+  onClick,
+  type,
+  disabled,
+  displayNone,
+  close,
+}) => {
   const chevronClasses = classNames([
     'fas',
     'fa-chevron-right',
@@ -10,10 +19,15 @@ const Button = ({ text, chevron, fontSize, onClick, type, disabled }) => {
   ]);
 
   const arrowClasses = classNames(['fas', 'fa-arrow-right', styles.arrow]);
+  const closeClasses = classNames(['fas', 'fa-times']);
   return (
     <button
       className={styles.button}
-      style={{ fontSize: `${fontSize}` }}
+      style={
+        displayNone
+          ? { fontSize: `${fontSize}`, display: 'none' }
+          : { fontSize: `${fontSize}` }
+      }
       onClick={onClick}
       type={type}
       disabled={disabled}
@@ -26,6 +40,11 @@ const Button = ({ text, chevron, fontSize, onClick, type, disabled }) => {
           <i className={arrowClasses}></i>
         </>
       )}
+      {close && (
+        <>
+          <i className={closeClasses}></i>
+        </>
+      )}
     </button>
   );
 };
@@ -35,6 +54,7 @@ Button.defaultProps = {
   fontSize: '1rem',
   chevron: false,
   disabled: false,
+  close: false,
 };
 
 Button.propTypes = {
@@ -42,6 +62,7 @@ Button.propTypes = {
   fontSize: PropTypes.string,
   chevron: PropTypes.bool,
   disabled: PropTypes.bool,
+  close: PropTypes.bool,
 };
 
 export default Button;
