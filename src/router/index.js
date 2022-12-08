@@ -15,6 +15,7 @@ import UserHomeScreen from '../screens/UserHomeScreen';
 import { getUser, signIn, signOut } from '../utils/fetches';
 import { useStateValue } from '../state';
 import { SET_USER_CREDENTIALS, SET_USER_DATA } from '../state/types';
+import ModalButton from '../components/modalButton/ModalButton';
 
 const amplifyConfig = {
   Auth: {
@@ -42,6 +43,8 @@ const AppRouter = () => {
     dispatch,
   ] = useStateValue();
   const [error, setError] = useState({ message: null });
+  const [modalOpen, setModalOpen] = useState(false);
+  const toggleModal = () => setModalOpen(!modalOpen);
 
   Amplify.configure(amplifyConfig);
 
@@ -151,6 +154,7 @@ const AppRouter = () => {
           }
         />
       </Routes>
+      <ModalButton onClick={toggleModal} currentUser={currentUser} />
       <Footer />
     </Router>
   );
