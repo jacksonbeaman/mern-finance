@@ -16,6 +16,70 @@ const RegisterScreen = () => {
 
   const navigate = useNavigate();
 
+  const handlePasswordChange = (e) => {
+    const passwordInputValue = e.target.value.trim();
+    setPasswordInput({ ...passwordInput, [e.target.name]: passwordInputValue });
+  };
+
+  const handleValidation = (e) => {
+    const inputValue = e.target.value.trim();
+    const inputFieldName = e.target.name;
+    // check email format
+    if (inputFieldName === 'email') {
+      const emailFormatRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+
+      const emailValid = emailFormatRegEx.test(inputValue);
+      if (!emailValid) {
+        setEmailError('Invalid email address');
+      } else {
+        setEmailError('');
+      }
+    }
+    // check password format
+    if (inputFieldName === 'password') {
+      const uppercaseRegExp = /(?=.*?[A-Z])/;
+      const lowercaseRegExp = /(?=.*?[a-z])/;
+      const digitsRegExp = /(?=.*?[0-9])/;
+      const specialCharRegExp = /(?=.*?[#?!@$%^&*-])/;
+      const minLengthRegExp = /.{8,}/;
+      const passwordLength = inputValue.length;
+      const uppercasePassword = uppercaseRegExp.test(inputValue);
+      const lowercasePassword = lowercaseRegExp.test(inputValue);
+      const digitsPassword = digitsRegExp.test(inputValue);
+      const specialCharPassword = specialCharRegExp.test(inputValue);
+      const minLengthPassword = minLengthRegExp.test(inputValue);
+      let passwordErrorMessage = '';
+      if (passwordLength === 0) {
+        passwordErrorMessage = 'Password is empty';
+      } else if (!uppercasePassword) {
+        passwordErrorMessage = 'At least one Uppercase';
+      } else if (!lowercasePassword) {
+        passwordErrorMessage = 'At least one Lowercase';
+      } else if (!digitsPassword) {
+        passwordErrorMessage = 'At least one digit';
+      } else if (!specialCharPassword) {
+        passwordErrorMessage = 'At least one Special Characters';
+      } else if (!minLengthPassword) {
+        passwordErrorMessage = 'At least minumum 8 characters';
+      } else {
+        passwordErrorMessage = '';
+      }
+      setPasswordError(passwordErrorMessage);
+    }
+    // check confirm password
+    if (
+      inputFieldName === 'confirmPassword' ||
+      (inputFieldName === 'password' &&
+        passwordInput.confirmPassword.length > 0)
+    ) {
+      if (passwordInput.confirmPassword !== passwordInput.password) {
+        setConfirmPasswordError('Confirm password is not matched');
+      } else {
+        setConfirmPasswordError('');
+      }
+    }
+  };
+
   const submitHandler = async (e) => {
     e.preventDefault();
     let username = emailInput;
