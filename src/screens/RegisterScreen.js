@@ -2,22 +2,26 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/button/Button';
 import { signUp } from '../utils/fetches';
+import Input from '../components/input/Input';
 
 const RegisterScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [emailInput, setEmailInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState({
+    password: '',
+    confirmPassword: '',
+  });
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [emailError, setEmailError] = useState('');
 
   const navigate = useNavigate();
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    let username = email;
-    await signUp(username, password);
-    alert(`${email}, ${password}, ${confirmPassword}`);
-    setEmail('');
-    setPassword('');
-    setConfirmPassword('');
+    let username = emailInput;
+    await signUp(username, passwordInput.password);
+    setEmailInput('');
+    setPasswordInput({ password: '', confirmPassword: '' });
     username = '';
     navigate('/login');
   };
@@ -28,27 +32,36 @@ const RegisterScreen = () => {
         <div className='formContainer'>
           <h1>Sign Up</h1>
           <form onSubmit={submitHandler}>
-            <label>Email Address</label>
-            <input
+            <Input
+              label='Email Address'
               type='email'
+              name='email'
               placeholder='Enter email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            ></input>
-            <label>Password</label>
-            <input
+              handleInputValidation={handleValidation}
+              handleInputChange={(e) => setEmailInput(e.target.value)}
+              inputValue={emailInput}
+              inputError={emailError}
+            />
+            <Input
+              label='Password'
               type='password'
+              name='password'
               placeholder='Enter password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            ></input>
-            <label>Confirm Password</label>
-            <input
+              handleInputValidation={handleValidation}
+              handleInputChange={(e) => handlePasswordChange(e)}
+              inputValue={passwordInput.password}
+              inputError={passwordError}
+            />
+            <Input
+              label='Confirm Password'
               type='password'
+              name='confirmPassword'
               placeholder='Confirm password'
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            ></input>
+              handleInputValidation={handleValidation}
+              handleInputChange={(e) => handlePasswordChange(e)}
+              inputValue={passwordInput.confirmPassword}
+              inputError={confirmPasswordError}
+            />
             <Button type='submit' text='Register' />
           </form>
           <span>
