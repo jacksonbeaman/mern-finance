@@ -6,16 +6,23 @@ import Input from '../components/input/Input';
 const LoginScreen = ({ onSignIn }) => {
   const [emailInput, setEmailInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   const navigate = useNavigate();
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    onSignIn({ username: emailInput, passwordInput });
-    alert(`${emailInput}, ${passwordInput}`);
-    setEmailInput('');
-    setPasswordInput('');
-    navigate('/');
+  const submitHandler = async (e) => {
+    try {
+      e.preventDefault();
+      let email = emailInput.trim();
+      let password = passwordInput.trim();
+      setLoginError('');
+      await onSignIn({ username: email, password });
+      setEmailInput('');
+      setPasswordInput('');
+      navigate('/');
+    } catch (error) {
+      setLoginError(error.message);
+    }
   };
 
   return (
@@ -39,6 +46,7 @@ const LoginScreen = ({ onSignIn }) => {
               placeholder='Enter password'
               handleInputChange={(e) => setPasswordInput(e.target.value)}
               inputValue={passwordInput}
+              inputError={loginError}
             />
             <Button type='submit' text='Sign In' />
           </form>
