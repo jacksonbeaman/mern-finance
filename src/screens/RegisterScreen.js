@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/button/Button';
 import { signUp } from '../utils/fetches';
@@ -13,6 +13,20 @@ const RegisterScreen = () => {
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [inputFieldsValid, setUserInputFieldsValid] = useState(false);
+  useEffect(() => {
+    if (
+      emailInput.length > 0 &&
+      emailError.length === 0 &&
+      passwordError.length === 0 &&
+      passwordInput.confirmPassword === passwordInput.password &&
+      passwordInput.confirmPassword.length > 0
+    ) {
+      setUserInputFieldsValid(true);
+    } else {
+      setUserInputFieldsValid(false);
+    }
+  }, [emailInput, emailError, passwordInput, passwordError]);
 
   const navigate = useNavigate();
 
@@ -125,8 +139,11 @@ const RegisterScreen = () => {
               handleInputChange={(e) => handlePasswordChange(e)}
               inputValue={passwordInput.confirmPassword}
               inputError={confirmPasswordError}
+            <Button
+              type='submit'
+              text='Register'
+              disabled={!inputFieldsValid}
             />
-            <Button type='submit' text='Register' />
           </form>
           <span>
             Have an account? <Link to='/login'>Login</Link>
