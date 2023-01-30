@@ -14,6 +14,8 @@ const RegisterScreen = () => {
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [inputFieldsValid, setUserInputFieldsValid] = useState(false);
+  const [registrationError, setRegistrationError] = useState('');
+
   useEffect(() => {
     if (
       emailInput.length > 0 &&
@@ -41,7 +43,6 @@ const RegisterScreen = () => {
     // check email format
     if (inputFieldName === 'email') {
       const emailFormatRegEx = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-
       const emailValid = emailFormatRegEx.test(inputValue);
       if (!emailValid) {
         setEmailError('Invalid email address');
@@ -95,13 +96,19 @@ const RegisterScreen = () => {
   };
 
   const submitHandler = async (e) => {
-    e.preventDefault();
-    let username = emailInput;
-    await signUp(username, passwordInput.password);
-    setEmailInput('');
-    setPasswordInput({ password: '', confirmPassword: '' });
-    username = '';
-    navigate('/login');
+    try {
+      e.preventDefault();
+      let username = emailInput;
+      let password = passwordInput.password;
+      setRegistrationError('');
+      await signUp(username, password);
+      setEmailInput('');
+      setPasswordInput({ password: '', confirmPassword: '' });
+      username = '';
+      navigate('/login');
+    } catch (error) {
+      setRegistrationError(error.message);
+    }
   };
 
   return (
@@ -138,7 +145,12 @@ const RegisterScreen = () => {
               handleInputValidation={handleValidation}
               handleInputChange={(e) => handlePasswordChange(e)}
               inputValue={passwordInput.confirmPassword}
-              inputError={confirmPasswordError}
+              inputError={
+                registrationError.length > 0
+                  ? registrationError
+                  : confirmPasswordError
+              }
+            />
             <Button
               type='submit'
               text='Register'
