@@ -37,3 +37,15 @@
 .button:hover .chevron {
   display: none;
 }
+
+.button:disabled {
+  background-color: #61dafb1a;
+  color: #75757575;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  font-size: 1rem;
+  box-shadow: none;
+  cursor: auto;
+  margin: 0;
+}
