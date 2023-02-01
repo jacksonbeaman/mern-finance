@@ -1,20 +1,28 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/button/Button';
+import Input from '../components/input/Input';
 
 const LoginScreen = ({ onSignIn }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [emailInput, setEmailInput] = useState('');
+  const [passwordInput, setPasswordInput] = useState('');
+  const [loginError, setLoginError] = useState('');
 
   const navigate = useNavigate();
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    onSignIn({ username: email, password });
-    alert(`${email}, ${password}`);
-    setEmail('');
-    setPassword('');
-    navigate('/');
+  const submitHandler = async (e) => {
+    try {
+      e.preventDefault();
+      let email = emailInput.trim();
+      let password = passwordInput.trim();
+      setLoginError('');
+      await onSignIn({ username: email, password });
+      setEmailInput('');
+      setPasswordInput('');
+      navigate('/');
+    } catch (error) {
+      setLoginError(error.message);
+    }
   };
 
   return (
@@ -23,20 +31,23 @@ const LoginScreen = ({ onSignIn }) => {
         <div className='formContainer'>
           <h1>Sign In</h1>
           <form onSubmit={submitHandler}>
-            <label>Email Address</label>
-            <input
+            <Input
+              label='Email Address'
               type='email'
+              name='email'
               placeholder='Enter email'
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            ></input>
-            <label>Password</label>
-            <input
+              handleInputChange={(e) => setEmailInput(e.target.value)}
+              inputValue={emailInput}
+            />
+            <Input
+              label='Password'
               type='password'
+              name='password'
               placeholder='Enter password'
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            ></input>
+              handleInputChange={(e) => setPasswordInput(e.target.value)}
+              inputValue={passwordInput}
+              inputError={loginError}
+            />
             <Button type='submit' text='Sign In' />
           </form>
           <span>
