@@ -4,7 +4,7 @@ const Footer = () => {
   return (
     <footer className={styles.footer}>
       <div className={styles.brand}>
-        <span className={styles.footerLogo}>MERN</span> Finance
+        <span className={styles.footerLogo}>DALR</span> Finance
       </div>
       <div className={styles.copyright}>
         <p>MERNFinance &copy; 2022 All rights reserved.</p>
