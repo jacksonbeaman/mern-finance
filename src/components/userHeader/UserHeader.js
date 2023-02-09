@@ -24,7 +24,7 @@ const UserHeader = ({ onSignOut }) => {
       <nav className={`${styles.navbar} container`}>
         <div className={styles.brand} onClick={() => scroll.scrollToTop()}>
           <Link className={`${styles.logoLinkContainer} linkContainer`} to='/'>
-            <span className={styles.navLogo}>MERN</span> Finance
+            <span className={styles.navLogo}>DALR</span> Finance
           </Link>
         </div>
         <div className={styles.navMenu}>

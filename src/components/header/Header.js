@@ -47,7 +47,8 @@ const Header = () => {
       <nav className={`${styles.navbar} + ' ' + container`}>
         {pathname === '/' ? (
           <div className={styles.brand} onClick={() => scroll.scrollToTop()}>
-            <span className={styles.navLogo}>MERN</span> Finance
+            <span className={styles.navLogo}>DALR</span>
+            Finance
           </div>
         ) : (
           <div className={styles.brand} onClick={() => scroll.scrollToTop()}>
