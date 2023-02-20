@@ -60,11 +60,7 @@ export const getQuote = async (symbol, userToken) => {
       },
     };
     const { data } = await axios(settings);
-    return {
-      symbol: data.symbol,
-      companyName: data.companyName,
-      price: data.latestPrice,
-    };
+    return data;
   } catch (error) {
     console.log(error);
     throw error;
