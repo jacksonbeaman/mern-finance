@@ -174,3 +174,19 @@ export const withdrawAccount = async (userEmail, userToken, amount) => {
     throw error;
   }
 };
+
+export const getWeatherData = async (lat, long) => {
+  try {
+    const settings = {
+      url: `/v1/forecast?latitude=${lat}&longitude=${long}&current_weather=true`,
+      baseURL: `https://api.open-meteo.com`,
+      method: 'get',
+      timeout: 0,
+    };
+    const { data } = await axios(settings);
+    return data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
