@@ -4,10 +4,10 @@ import { getQuote } from '../utils/fetches';
 
 const QuoteScreen = ({ userToken }) => {
   const [inputSymbol, setInputSymbol] = useState('');
-  const [{ symbol, companyName, price }, setQuote] = useState({
+  const [{ symbol, companyName, latestPrice }, setQuote] = useState({
     symbol: null,
     companyName: null,
-    price: null,
+    latestPrice: null,
   });
   const [quoteErrorMessage, setQuoteErrorMessage] = useState(undefined);
 
@@ -19,10 +19,13 @@ const QuoteScreen = ({ userToken }) => {
       setQuote({
         symbol: null,
         companyName: null,
-        price: null,
+        latestPrice: null,
       });
-      const fetchedQuote = await getQuote(inputSymbol, userToken);
-      setQuote(fetchedQuote);
+      const { symbol, companyName, latestPrice } = await getQuote(
+        inputSymbol,
+        userToken
+      );
+      setQuote({ symbol, companyName, latestPrice });
       setInputSymbol('');
     } catch (error) {
       // follows Axios catch block error handling logic - see Axios documentation
@@ -53,7 +56,7 @@ const QuoteScreen = ({ userToken }) => {
             <Button type='submit' text='Get Quote' />
           </form>
           {symbol && (
-            <span>{`A share of ${companyName} (${symbol}) costs $${price}`}</span>
+            <span>{`A share of ${companyName} (${symbol}) costs $${latestPrice}`}</span>
           )}
           {quoteErrorMessage && <span>{quoteErrorMessage}</span>}
         </div>
