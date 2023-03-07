@@ -3,6 +3,7 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .headerRight,
@@ -50,4 +51,17 @@
 .circleClass {
   fill: #61dafb;
   fill: #4c6ef5;
+}
+
+@media only screen and (max-width: 768px) {
+  .headerLeft,
+  .headerRight {
+    width: 100%;
+    /* align-items: flex-start;
+    justify-content: flex-start; */
+  }
+
+  .headerLeft {
+    margin-bottom: 0.5rem;
+  }
 }
