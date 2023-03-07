@@ -173,8 +173,6 @@ a:active.linkContainer {
 
 .tableScreen {
   display: flex;
-  justify-content: center;
-  align-items: center;
   padding-top: 80px;
   min-height: calc(100vh - 172px);
   position: relative;

@@ -3,6 +3,7 @@ import styles from './header.module.css';
 import { useEffect, useState } from 'react';
 import { Link as LinkScroll, animateScroll as scroll } from 'react-scroll';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
 
 const Header = () => {
   const [navActive, setNavActive] = useState(false);
@@ -34,6 +35,23 @@ const Header = () => {
     // navigate instead of history.push('/login') with v6 of react-router;
   };
 
+  const sidebarContainerClassNames = classNames(styles.sidebarContainer, {
+    [styles.hidden]: !toggleSidebar,
+  });
+
+  const hamburgerClasses = classNames(
+    'fas',
+    'fa-bars',
+    styles.toggleIcon,
+    styles.hamburger
+  );
+
+  const navbarClasses = classNames(styles.navbar, 'container');
+
+  const logoLinkClasses = classNames(styles.logoLinkContainer, 'linkContainer');
+
+  const closeIconClasses = classNames('fas', 'fa-times', styles.closeIcon);
+
   return (
     <header
       className={
@@ -44,18 +62,16 @@ const Header = () => {
           : ''
       }
     >
-      <nav className={`${styles.navbar} + ' ' + container`}>
+      <nav className={navbarClasses}>
         {pathname === '/' ? (
           <div className={styles.brand} onClick={() => scroll.scrollToTop()}>
-            <span className={styles.navLogo}>MERN</span> Finance
+            <span className={styles.navLogo}>DALR</span>
+            Finance
           </div>
         ) : (
           <div className={styles.brand} onClick={() => scroll.scrollToTop()}>
-            <Link
-              className={`${styles.logoLinkContainer} + ' ' + linkContainer`}
-              to='/'
-            >
-              <span className={styles.navLogo}>MERN</span> Finance
+            <Link className={logoLinkClasses} to='/'>
+              <span className={styles.navLogo}>DALR</span> Finance
             </Link>
           </div>
         )}
@@ -124,14 +140,14 @@ const Header = () => {
         <div className={styles.navButtonContainer}>
           <Button text='Sign In' onClick={() => handleSignIn()} />
         </div>
-        <div className={styles.sidebarContainer}>
-          {toggleSidebar ? (
+        <div className={styles.hamburgerContainer}>
+          <i className={hamburgerClasses} onClick={() => toggle()}></i>
+        </div>
+        <div className={sidebarContainerClassNames}>
+          {toggleSidebar && (
             <div className={styles.sidebarMenu}>
               <div className={styles.closeIconContainer}>
-                <i
-                  onClick={() => toggle()}
-                  className={`fas fa-times + ' ' + ${styles.closeIcon}`}
-                ></i>
+                <i onClick={() => toggle()} className={closeIconClasses}></i>
               </div>
               <div className={styles.sidebarItemsContainer}>
                 <ul>
@@ -199,11 +215,6 @@ const Header = () => {
                 />
               </div>
             </div>
-          ) : (
-            <i
-              className={`fas fa-bars + ' ' + ${styles.toggleIcon}`}
-              onClick={() => toggle()}
-            ></i>
           )}
         </div>
       </nav>

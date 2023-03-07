@@ -1,0 +1,67 @@
+.dashboardHeader {
+  margin: 4rem 0 4rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.headerRight,
+.headerLeft {
+  width: 50%;
+  display: flex;
+}
+
+.headerLeft {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.headerRight {
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+.userUnderline {
+  width: 350px;
+  height: 4px;
+  background-color: #61dafb;
+  border: none;
+  margin: 0.5rem 0 0.625rem;
+}
+
+.totalsGeometric {
+  width: 250px;
+  height: 8px;
+  background-color: #4c6ef5;
+  border: none;
+  margin: 0 0 0.75rem;
+}
+
+.totalAccountValue,
+.totalCashValue {
+  margin-bottom: 0.5rem;
+}
+
+.geoInfo {
+  margin-bottom: 0.25rem;
+}
+.circleClass {
+  fill: #61dafb;
+  fill: #4c6ef5;
+}
+
+@media only screen and (max-width: 768px) {
+  .headerLeft,
+  .headerRight {
+    width: 100%;
+    /* align-items: flex-start;
+    justify-content: flex-start; */
+  }
+
+  .headerLeft {
+    margin-bottom: 0.5rem;
+  }
+}
