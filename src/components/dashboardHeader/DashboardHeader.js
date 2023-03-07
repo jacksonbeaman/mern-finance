@@ -35,7 +35,7 @@ const DashboardHeader = ({ totalAccountValue }) => {
       <div className={styles.headerLeft}>
         <h3>{`Hello ${userEmail}`}</h3>
         <hr className={styles.userUnderline} />
-        <h5 className={styles.geoInfo}>{`Looks like today's weather will have ${
+        <h5 className={styles.geoInfo}>{`The weather currently is ${
           weatherCodes?.[userLocationInfo?.current_weather?.weathercode]
         }`}</h5>
         <h5 className={styles.geoInfo}>{userLocalDateTime}</h5>
